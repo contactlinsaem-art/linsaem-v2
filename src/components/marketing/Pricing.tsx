@@ -5,7 +5,6 @@ const PLANS = [
   {
     name: "Starter",
     price: "5,99",
-    engagement: "Engagement 24 mois",
     ideal: "Idéal pour les auto-entrepreneurs",
     features: [
       "Site one-page personnalisé",
@@ -24,7 +23,6 @@ const PLANS = [
   {
     name: "Pro",
     price: "7,99",
-    engagement: "Engagement 12 mois",
     ideal: "Idéal pour les TPE & artisans",
     features: [
       "Site jusqu'à 3 pages",
@@ -44,7 +42,6 @@ const PLANS = [
   {
     name: "Business",
     price: "11,99",
-    engagement: "Engagement 12 mois",
     ideal: "Idéal pour les PME",
     features: [
       "Site jusqu'à 10 pages",
@@ -71,7 +68,7 @@ export function Pricing() {
           <div className="section-tag">Tarifs</div>
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Choisissez votre formule</h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            Tout inclus, sans frais cachés. Annulez quand vous voulez après la période d&apos;engagement.
+            Tout inclus, sans frais cachés. Résiliez à tout moment avec un préavis d&apos;un mois.
           </p>
         </div>
 
@@ -100,10 +97,7 @@ export function Pricing() {
               <div className="flex items-end gap-1 mb-1">
                 <span className={`text-sm font-medium ${plan.featured ? "text-gray-300" : "text-gray-400"}`}>€</span>
                 <span className="text-5xl font-extrabold">{plan.price}</span>
-                <span className={`text-sm mb-2 ${plan.featured ? "text-gray-400" : "text-gray-400"}`}>/mois</span>
-              </div>
-              <div className={`text-xs mb-1 ${plan.featured ? "text-gray-400" : "text-gray-400"}`}>
-                {plan.engagement}
+                <span className={`text-sm mb-2 ${plan.featured ? "text-gray-400" : "text-gray-400"}`}>&nbsp;TTC/mois</span>
               </div>
               <div className={`text-xs mb-6 ${plan.featured ? "text-violet-400" : "text-sky-500"}`}>{plan.ideal}</div>
 
@@ -134,7 +128,7 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="text-center text-xs text-gray-400 mt-8">* Frais de mise en service potentiels</p>
+        <p className="text-center text-xs text-gray-400 mt-8">* Frais de mise en service : 50€ TTC (unique, à la création)</p>
       </div>
     </section>
   );

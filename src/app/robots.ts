@@ -6,8 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/dashboard/", "/api/", "/login"],
+        disallow: ["/dashboard/", "/api/", "/login", "/*.json$"],
       },
+      { userAgent: "AhrefsBot", allow: "/", crawlDelay: 10 },
+      { userAgent: "SemrushBot", allow: "/", crawlDelay: 10 },
     ],
     sitemap: "https://www.linsaem.fr/sitemap.xml",
     host: "https://www.linsaem.fr",

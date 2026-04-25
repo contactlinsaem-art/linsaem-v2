@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieReset } from "@/components/marketing/CookieReset";
 
 export function Footer() {
   return (
@@ -20,9 +21,9 @@ export function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Offres</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/#tarifs" className="hover:text-white transition-colors">Starter — 5,99€</Link></li>
-              <li><Link href="/#tarifs" className="hover:text-white transition-colors">Pro — 7,99€</Link></li>
-              <li><Link href="/#tarifs" className="hover:text-white transition-colors">Business — 11,99€</Link></li>
+              <li><Link href="/#tarifs" className="hover:text-white transition-colors">Starter — 5,99€ TTC/mois</Link></li>
+              <li><Link href="/#tarifs" className="hover:text-white transition-colors">Pro — 7,99€ TTC/mois</Link></li>
+              <li><Link href="/#tarifs" className="hover:text-white transition-colors">Business — 11,99€ TTC/mois</Link></li>
               <li><Link href="/#services" className="hover:text-white transition-colors">Nos Services</Link></li>
             </ul>
           </div>
@@ -35,6 +36,7 @@ export function Footer() {
               <li><Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link></li>
               <li><Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link></li>
               <li><Link href="/cgv" className="hover:text-white transition-colors">CGV</Link></li>
+              <li><Link href="/politique-de-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</Link></li>
             </ul>
           </div>
 
@@ -54,6 +56,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-8 text-center text-xs text-gray-600">
           <p>© 2025 LINSAEM. Tous droits réservés.</p>
+          <CookieReset label="Gérer mes cookies" />
         </div>
       </div>
     </footer>

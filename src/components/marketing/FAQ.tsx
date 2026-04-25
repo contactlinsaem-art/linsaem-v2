@@ -4,11 +4,11 @@ import { Plus, Minus } from "lucide-react";
 
 const FAQS = [
   { q: "Pourquoi c'est si peu cher ?", a: "On a optimisé nos processus pour créer des sites rapidement sans sacrifier la qualité. Pas de locaux coûteux, pas d'intermédiaires, des outils performants. On répercute ces économies sur nos prix." },
-  { q: "Que se passe-t-il après la période d'engagement ?", a: "Votre abonnement continue au même tarif, mais sans engagement. Vous pouvez résilier à tout moment avec un préavis d'un mois. Vos données vous appartiennent et peuvent être exportées." },
+  { q: "Puis-je résilier mon abonnement à tout moment ?", a: "Votre abonnement est sans engagement de durée. Vous pouvez résilier à tout moment avec un préavis d’un mois par email. Vos données vous appartiennent et peuvent être exportées sur demande." },
   { q: "Est-ce que je peux modifier mon site moi-même ?", a: "Vous pouvez, mais vous n'avez pas besoin ! Envoyez-nous simplement un message depuis votre espace client avec vos modifications, on les fait pour vous sous 48h. C'est inclus dans votre abonnement." },
   { q: "Mon site sera-t-il bien référencé sur Google ?", a: "Oui ! Tous nos sites sont optimisés pour le SEO : structure propre, temps de chargement rapide, balises correctement renseignées, mobile-friendly. Les bases sont là pour un bon référencement." },
   { q: "Je n'ai pas de contenus (textes, photos), vous pouvez m'aider ?", a: "Oui absolument ! On peut rédiger vos textes professionnels et sélectionner des photos libres de droits adaptées à votre activité. Contactez-nous pour en discuter." },
-  { q: "Comment fonctionne le paiement ?", a: "Paiement mensuel par carte bancaire via Stripe, 100% sécurisé. La première mensualité est due après validation de votre site. Factures disponibles chaque mois dans votre espace client." },
+  { q: "Comment fonctionne le paiement ?", a: "Paiement mensuel par carte bancaire via Stripe, 100 % sécurisé. La première mensualité est due après validation de votre site. Factures disponibles chaque mois dans votre espace client. Tous nos prix sont TTC. Des frais de mise en service de 50€ TTC sont facturés une seule fois à la création de votre site." },
 ];
 
 export function FAQ() {

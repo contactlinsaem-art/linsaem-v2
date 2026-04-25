@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
@@ -10,9 +11,9 @@ const PROJECTS = [
     desc: "Site vitrine élégant pour une boulangerie artisanale avec présentation des produits, horaires et localisation.",
     features: ["Galerie de produits avec photos HD", "Horaires d'ouverture en temps réel", "Plan d'accès interactif Google Maps", "Commande par téléphone en un clic"],
     tags: ["Starter", "One-page", "Livré en 48h"],
-    href: "#",
+    href: "/demos/boulangerie",
     bg: "from-amber-50 to-orange-50",
-    emoji: "🥖",
+    image: "https://www.linsaem.fr/images/photo-1509440159596-0249088772ff.jpg",
   },
   {
     title: "Plomberie Martin",
@@ -20,9 +21,9 @@ const PROJECTS = [
     desc: "Site professionnel multi-pages pour un artisan plombier avec système de devis en ligne.",
     features: ["Formulaire de devis personnalisé", "Section témoignages clients avec notes", "Affichage des certifications RGE", "Bouton d'appel d'urgence visible"],
     tags: ["Pro", "3 pages", "SEO optimisé"],
-    href: "#",
+    href: "/demos/artisan",
     bg: "from-blue-50 to-sky-50",
-    emoji: "🔧",
+    image: "https://www.linsaem.fr/images/photo-1581578731548-c64695cc6952.jpg",
   },
   {
     title: "Studio Architecture Moderne",
@@ -30,9 +31,9 @@ const PROJECTS = [
     desc: "Portfolio élégant pour un cabinet d'architecture avec galerie de projets et présentation de l'équipe.",
     features: ["Galerie projets avec filtres par catégorie", "Présentation détaillée de l'équipe", "Téléchargement de plaquette PDF", "Formulaire de contact multi-étapes"],
     tags: ["Pro", "Portfolio", "Design premium"],
-    href: "#",
+    href: "/demos/architecte",
     bg: "from-stone-50 to-gray-50",
-    emoji: "🏛️",
+    image: "https://www.linsaem.fr/images/photo-1503387762-592deb58ef4e.jpg",
   },
   {
     title: "Sophie Lens Photographe",
@@ -40,9 +41,29 @@ const PROJECTS = [
     desc: "Portfolio créatif avec galerie haute définition et système de réservation en ligne pour shootings photo.",
     features: ["Galerie plein écran avec zoom HD", "Système de réservation et paiement", "Gestion des disponibilités en temps réel", "Catégories shooting personnalisées"],
     tags: ["Business", "E-commerce", "Réservation"],
-    href: "#",
+    href: "/demos/photographe",
     bg: "from-rose-50 to-pink-50",
-    emoji: "📷",
+    image: "https://www.linsaem.fr/images/photo-1542038784456-1ea8e935640e.jpg",
+  },
+  {
+    title: "La Table Provençale",
+    category: "Site Restaurant",
+    desc: "Site élégant pour un restaurant gastronomique avec carte en ligne, réservation et présentation du chef.",
+    features: ["Carte en ligne avec photos HD", "Système de réservation en ligne", "Présentation de l'équipe", "Horaires et plan d'accès"],
+    tags: ["Pro", "Restaurant", "Réservation"],
+    href: "/demos/restaurant",
+    bg: "from-green-950 to-amber-950",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+  },
+  {
+    title: "Coach Sarah Martin",
+    category: "Site Coach",
+    desc: "Site professionnel pour une coach certifiée avec programmes, témoignages clients et calendrier de réservation.",
+    features: ["Présentation des programmes", "Calendrier de réservation intégré", "Témoignages clients animés", "Blog & ressources gratuites"],
+    tags: ["Business", "Coach", "Réservation"],
+    href: "/demos/coach",
+    bg: "from-gray-950 to-green-950",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
   },
 ];
 
@@ -64,16 +85,30 @@ export function Portfolio() {
         </div>
 
         <div className="relative max-w-5xl mx-auto">
-          <div className={`card overflow-hidden bg-gradient-to-br ${project.bg} border-0`}>
+          <div key={current} className={`card overflow-hidden bg-gradient-to-br ${project.bg} border-0`}>
             <div className="grid lg:grid-cols-2 gap-0">
               {/* Visual side */}
-              <div className={`bg-gradient-to-br ${project.bg} p-12 flex items-center justify-center min-h-64`}>
-                <div className="text-center">
-                  <div className="text-8xl mb-6">{project.emoji}</div>
-                  <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-sm font-medium text-gray-700">
+              <div className={`bg-gradient-to-br ${project.bg} relative overflow-hidden min-h-64`}>
+                <a href={project.href} target="_blank" rel="noopener noreferrer" className="block absolute inset-0">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                </a>
+                <div className="absolute bottom-4 left-4">
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white transition-colors"
+                  >
                     <ExternalLink size={14} />
                     {project.category}
-                  </div>
+                  </a>
                 </div>
               </div>
 
@@ -92,13 +127,22 @@ export function Portfolio() {
                   ))}
                 </ul>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag) => (
                     <span key={tag} className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">
                       {tag}
                     </span>
                   ))}
                 </div>
+
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-sky-500 hover:text-sky-600 transition-colors"
+                >
+                  Voir le site <ExternalLink size={14} />
+                </a>
               </div>
             </div>
           </div>

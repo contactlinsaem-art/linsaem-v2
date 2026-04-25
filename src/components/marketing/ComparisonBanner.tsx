@@ -3,7 +3,7 @@ export function ComparisonBanner() {
     { label: "Éditeur en ligne A", price: "17€/mois", note: "Template générique", ours: false },
     { label: "Éditeur en ligne B", price: "16€/mois", note: "Vous faites tout", ours: false },
     { label: "Agence web", price: "500€+", note: "Paiement unique", ours: false },
-    { label: "✨ LINSAEM", price: "5,99€/mois", note: "Design sur-mesure inclus", ours: true },
+    { label: "✨ LINSAEM", price: "5,99€ TTC/mois", note: "Design sur-mesure inclus", ours: true },
   ];
 
   return (

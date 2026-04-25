@@ -40,12 +40,18 @@ export default function MentionsLegalesPage() {
               <p>
                 L&apos;ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, etc.) est la propriété exclusive de LINSAEM, protégé par les lois françaises et internationales relatives à la propriété intellectuelle. Toute reproduction, distribution, modification, adaptation ou publication, même partielle, est strictement interdite sans accord préalable écrit de LINSAEM.
               </p>
+              <p className="mt-3">
+                Les contenus fournis par le client (textes, photos, logo) restent sa propriété exclusive. LINSAEM dispose d&apos;une licence d&apos;utilisation limitée à la durée de l&apos;abonnement.
+              </p>
             </section>
 
             <section>
               <h2 className="text-lg font-bold text-gray-900 mb-3">4. Protection des données personnelles</h2>
               <p>
                 Les données collectées via les formulaires du site (nom, email, téléphone) sont utilisées exclusivement pour répondre à vos demandes et gérer la relation commerciale. Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d&apos;un droit d&apos;accès, de rectification, de suppression et de portabilité de vos données. Pour exercer ces droits, contactez-nous à <a href="mailto:contact@linsaem.fr" className="text-sky-500">contact@linsaem.fr</a>.
+              </p>
+              <p className="mt-3">
+                Les données de paiement sont traitées exclusivement par notre prestataire Stripe Inc. LINSAEM ne stocke jamais vos coordonnées bancaires.
               </p>
             </section>
 

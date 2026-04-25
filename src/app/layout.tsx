@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CookieBanner } from "@/components/marketing/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.linsaem.fr"),
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | LINSAEM",
   },
   description:
-    "Créez votre site web professionnel dès 5,99€/mois. Design sur-mesure, hébergement inclus, maintenance comprise. Livraison en 48h. Sans engagement après 12 mois.",
+    "Créez votre site web professionnel dès 5,99€ TTC/mois. Design sur-mesure, hébergement inclus, maintenance comprise. Livraison en 48h. Résiliable à tout moment.",
   keywords: [
     "création site web",
     "agence web",
@@ -87,35 +88,84 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   name: "Formule Starter",
                   price: "5.99",
                   priceCurrency: "EUR",
-                  description: "Site one-page personnalisé avec hébergement inclus",
+                  description: "Site one-page personnalisé avec hébergement inclus — 5,99€ TTC/mois",
                 },
                 {
                   "@type": "Offer",
                   name: "Formule Pro",
                   price: "7.99",
                   priceCurrency: "EUR",
-                  description: "Site jusqu'à 3 pages avec design premium",
+                  description: "Site jusqu'à 3 pages avec design premium — 7,99€ TTC/mois",
                 },
                 {
                   "@type": "Offer",
                   name: "Formule Business",
                   price: "11.99",
                   priceCurrency: "EUR",
-                  description: "Site jusqu'à 10 pages avec blog intégré",
+                  description: "Site jusqu'à 10 pages avec blog intégré — 11,99€ TTC/mois",
                 },
               ],
             }),
           }}
         />
-        {/* Google Analytics */}
+        {/* Schema.org — WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "LINSAEM",
+              url: "https://www.linsaem.fr",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://www.linsaem.fr/?s={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+        {/* Schema.org — Service */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              serviceType: "Création de sites web",
+              provider: { "@type": "Organization", name: "LINSAEM" },
+              areaServed: "FR",
+              offers: [
+                { "@type": "Offer", name: "Formule Starter", price: "5.99", priceCurrency: "EUR", billingDuration: "P1M", description: "Site one-page personnalisé avec hébergement inclus", priceSpecification: { "@type": "UnitPriceSpecification", price: "5.99", priceCurrency: "EUR", unitText: "MONTH", valueAddedTaxIncluded: true } },
+                { "@type": "Offer", name: "Formule Pro", price: "7.99", priceCurrency: "EUR", billingDuration: "P1M", description: "Site jusqu’à 3 pages avec design premium", priceSpecification: { "@type": "UnitPriceSpecification", price: "7.99", priceCurrency: "EUR", unitText: "MONTH", valueAddedTaxIncluded: true } },
+                { "@type": "Offer", name: "Formule Business", price: "11.99", priceCurrency: "EUR", billingDuration: "P1M", description: "Site jusqu’à 10 pages avec blog intégré", priceSpecification: { "@type": "UnitPriceSpecification", price: "11.99", priceCurrency: "EUR", unitText: "MONTH", valueAddedTaxIncluded: true } },
+              ],
+            }),
+          }}
+        />
+        {/* Geo meta */}
+        <meta name="geo.region" content="FR" />
+        <meta name="geo.placename" content="France" />
+        {/* Google Analytics — consent-mode v2 */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKCPWNJNV1" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZKCPWNJNV1');`,
+            __html: `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    analytics_storage: 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-ZKCPWNJNV1');
+`,
           }}
         />
       </head>
-      <body className="font-sans bg-[#fafafa] text-[#111827] antialiased">{children}</body>
+      <body className="font-sans bg-[#fafafa] text-[#111827] antialiased">
+        {children}
+        <CookieBanner />
+      </body>
     </html>
   );
 }

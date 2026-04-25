@@ -8,6 +8,7 @@ import { Included } from "@/components/marketing/Included";
 import { Portfolio } from "@/components/marketing/Portfolio";
 import { HowItWorks } from "@/components/marketing/HowItWorks";
 import { Testimonials } from "@/components/marketing/Testimonials";
+import { CTABanner } from "@/components/marketing/CTABanner";
 import { FAQ } from "@/components/marketing/FAQ";
 import { ContactForm } from "@/components/marketing/ContactForm";
 import { Footer } from "@/components/marketing/Footer";
@@ -27,6 +28,7 @@ export default function HomePage() {
         <Portfolio />
         <HowItWorks />
         <Testimonials />
+        <CTABanner />
         <FAQ />
         <ContactForm />
       </main>

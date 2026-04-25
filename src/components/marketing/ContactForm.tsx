@@ -144,6 +144,22 @@ export function ContactForm() {
               <p className="text-red-500 text-sm">Une erreur est survenue. Réessayez ou contactez-nous par email.</p>
             )}
 
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                name="rgpd"
+                id="rgpd"
+                required
+                className="mt-1 w-4 h-4 rounded border-gray-300 text-sky-500 focus:ring-sky-300 cursor-pointer"
+              />
+              <label htmlFor="rgpd" className="text-xs text-gray-500 leading-relaxed">
+                J&apos;accepte que mes données soient utilisées par LINSAEM pour répondre à ma demande. Consultez notre{" "}
+                <a href="/politique-de-confidentialite" className="text-sky-500 hover:underline">
+                  politique de confidentialité
+                </a>.
+              </label>
+            </div>
+
             <button
               type="submit"
               disabled={status === "loading"}
