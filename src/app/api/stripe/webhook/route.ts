@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { neon } from "@neondatabase/serverless";
-import { sendOrderConfirmation } from "@/lib/emails";
+import { sendOrderConfirmation, sendWelcomeEmail } from "@/lib/emails";
+import { createClient, createSite } from "@/lib/db";
 import Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
@@ -33,11 +34,27 @@ export async function POST(req: NextRequest) {
         const clientId = subscription.metadata.clientId;
         const planName = subscription.metadata.planName;
 
+        // Récupérer l'email du customer Stripe
+        const stripe = getStripe();
+        const customer = await stripe.customers.retrieve(subscription.customer as string) as Stripe.Customer;
+        const customerEmail = customer.email || "";
+        const customerName = (customer.name || planName || "Client");
+
+        // Créer ou récupérer le client en base
+        let resolvedClient: { id: string; name: string; email: string } | null = null;
         if (clientId) {
+          const rows = await sql`SELECT id, name, email FROM clients WHERE id = ${clientId} LIMIT 1`;
+          resolvedClient = rows[0] || null;
+        }
+        if (!resolvedClient && customerEmail) {
+          resolvedClient = await createClient(customerName, customerEmail);
+        }
+
+        if (resolvedClient) {
           await sql`
             INSERT INTO abonnements (client_id, formule, statut, stripe_customer_id, stripe_subscription_id, stripe_price_id, montant_mensuel)
             VALUES (
-              ${clientId},
+              ${resolvedClient.id},
               ${planName?.toLowerCase() || "starter"},
               'actif',
               ${subscription.customer as string},
@@ -48,17 +65,36 @@ export async function POST(req: NextRequest) {
             ON CONFLICT DO NOTHING
           `;
 
-          const rows = await sql`SELECT name, email FROM clients WHERE id = ${clientId}`;
-          if (rows[0]) {
-            const montant = (subscription.items.data[0]?.price.unit_amount || 0) / 100;
-            await sendOrderConfirmation({
-              name: rows[0].name,
-              email: rows[0].email,
-              formule: planName || "Starter",
-              prix: montant,
-              dashboardUrl: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
-            });
-          }
+          // Créer l'entrée site
+          await createSite(resolvedClient.id);
+
+          // Générer reset_token pour création mot de passe
+          const resetToken = crypto.randomUUID();
+          const resetExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+          await sql`
+            UPDATE clients SET reset_token = ${resetToken}, reset_token_expires = ${resetExpires}
+            WHERE id = ${resolvedClient.id}
+          `;
+
+          const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.linsaem.fr";
+          const montant = (subscription.items.data[0]?.price.unit_amount || 0) / 100;
+
+          // Email de bienvenue avec lien set-password
+          await sendWelcomeEmail({
+            name: resolvedClient.name,
+            email: resolvedClient.email,
+            formule: planName || "Starter",
+            setPasswordUrl: `${appUrl}/set-password?token=${resetToken}`,
+          });
+
+          // Email de confirmation commande
+          await sendOrderConfirmation({
+            name: resolvedClient.name,
+            email: resolvedClient.email,
+            formule: planName || "Starter",
+            prix: montant,
+            dashboardUrl: `${appUrl}/dashboard`,
+          });
         }
         break;
       }

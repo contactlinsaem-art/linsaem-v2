@@ -189,3 +189,168 @@ export async function sendOrderConfirmation(data: {
     `,
   });
 }
+
+// ============================================
+// Email : Bienvenue + lien création mot de passe
+// ============================================
+export async function sendWelcomeEmail(data: {
+  name: string;
+  email: string;
+  formule: string;
+  setPasswordUrl: string;
+}) {
+  return getResend().emails.send({
+    from: `LINSAEM <${FROM}>`,
+    to: data.email,
+    subject: "🎉 Votre compte LINSAEM est prêt — Définissez votre mot de passe",
+    html: `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f8fafc;font-family:'DM Sans',Arial,sans-serif;">
+  <div style="max-width:600px;margin:40px auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+    <div style="background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);padding:40px;">
+      <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <div style="width:40px;height:40px;background:rgba(255,255,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:white;">L</div>
+        <span style="color:white;font-size:20px;font-weight:800;letter-spacing:1px;">LINSAEM</span>
+      </div>
+      <h1 style="color:white;font-size:26px;font-weight:700;margin:0;line-height:1.3;">🎉 Bienvenue ${data.name} !</h1>
+    </div>
+    <div style="padding:40px;">
+      <p style="color:#374151;font-size:16px;line-height:1.7;margin:0 0 16px;">
+        Votre abonnement <strong>${data.formule}</strong> est activé. Cliquez ci-dessous pour créer votre mot de passe et accéder à votre espace client.
+      </p>
+      <div style="text-align:center;margin:32px 0;">
+        <a href="${data.setPasswordUrl}" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:16px 36px;border-radius:100px;text-decoration:none;font-size:16px;font-weight:700;display:inline-block;">
+          Créer mon mot de passe →
+        </a>
+      </div>
+      <p style="color:#9ca3af;font-size:13px;text-align:center;margin:0;">
+        Ce lien est valable <strong>7 jours</strong>. Passé ce délai, contactez-nous à 
+        <a href="mailto:contact@linsaem.fr" style="color:#0ea5e9;">contact@linsaem.fr</a>.
+      </p>
+    </div>
+    <div style="background:#f9fafb;padding:24px 40px;border-top:1px solid #e5e7eb;">
+      <p style="margin:0;color:#9ca3af;font-size:12px;text-align:center;">© 2025 LINSAEM · contact@linsaem.fr</p>
+    </div>
+  </div>
+</body>
+</html>
+    `,
+  });
+}
+
+// ============================================
+// Email : Site mis en ligne
+// ============================================
+export async function sendSiteOnlineEmail(data: {
+  name: string;
+  email: string;
+  siteUrl: string;
+}) {
+  return getResend().emails.send({
+    from: `LINSAEM <${FROM}>`,
+    to: data.email,
+    subject: "🎉 Votre site est en ligne !",
+    html: `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f8fafc;font-family:'DM Sans',Arial,sans-serif;">
+  <div style="max-width:600px;margin:40px auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+    <div style="background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);padding:40px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">🎉</div>
+      <h1 style="color:white;font-size:26px;font-weight:700;margin:0;">Votre site est en ligne !</h1>
+    </div>
+    <div style="padding:40px;text-align:center;">
+      <p style="color:#374151;font-size:16px;line-height:1.7;margin:0 0 32px;">
+        Bonjour <strong>${data.name}</strong>, votre site est maintenant accessible en ligne. Visitez-le dès maintenant !
+      </p>
+      <a href="${data.siteUrl}" style="background:linear-gradient(135deg,#0ea5e9,#8b5cf6);color:white;padding:14px 32px;border-radius:100px;text-decoration:none;font-size:15px;font-weight:700;display:inline-block;">
+        Visiter mon site →
+      </a>
+    </div>
+    <div style="background:#f9fafb;padding:24px 40px;border-top:1px solid #e5e7eb;">
+      <p style="margin:0;color:#9ca3af;font-size:12px;text-align:center;">© 2025 LINSAEM · contact@linsaem.fr</p>
+    </div>
+  </div>
+</body>
+</html>
+    `,
+  });
+}
+
+// ============================================
+// Email : Alerte nouveau message client (admin)
+// ============================================
+export async function sendNewMessageAlert(data: {
+  clientName: string;
+  contenu: string;
+  adminUrl: string;
+}) {
+  return getResend().emails.send({
+    from: `LINSAEM Alertes <${FROM}>`,
+    to: TO_TEAM,
+    subject: `💬 Nouveau message de ${data.clientName}`,
+    html: `
+<!DOCTYPE html>
+<html lang="fr">
+<body style="margin:0;padding:0;background:#f8fafc;font-family:Arial,sans-serif;">
+  <div style="max-width:500px;margin:32px auto;background:#ffffff;border-radius:12px;overflow:hidden;border:2px solid #8b5cf6;">
+    <div style="background:#8b5cf6;padding:20px 28px;">
+      <h2 style="margin:0;color:white;font-size:18px;">💬 Nouveau message client</h2>
+    </div>
+    <div style="padding:28px;">
+      <p style="color:#374151;margin:0 0 16px;"><strong>${data.clientName}</strong> vous a envoyé un message :</p>
+      <div style="background:#f9fafb;border-radius:8px;padding:16px;margin-bottom:24px;">
+        <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;">${data.contenu}</p>
+      </div>
+      <a href="${data.adminUrl}" style="background:#8b5cf6;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;">Répondre →</a>
+    </div>
+  </div>
+</body>
+</html>
+    `,
+  });
+}
+
+// ============================================
+// Email : Notification message admin → client
+// ============================================
+export async function sendAdminMessageNotification(data: {
+  clientName: string;
+  clientEmail: string;
+  contenu: string;
+  dashboardUrl: string;
+}) {
+  return getResend().emails.send({
+    from: `LINSAEM <${FROM}>`,
+    to: data.clientEmail,
+    subject: "💬 Nouveau message de l'équipe LINSAEM",
+    html: `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f8fafc;font-family:'DM Sans',Arial,sans-serif;">
+  <div style="max-width:600px;margin:40px auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+    <div style="background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);padding:32px 40px;">
+      <h1 style="color:white;font-size:22px;font-weight:700;margin:0;">💬 Nouveau message de l'équipe</h1>
+    </div>
+    <div style="padding:40px;">
+      <p style="color:#374151;font-size:16px;margin:0 0 16px;">Bonjour <strong>${data.clientName}</strong>,</p>
+      <div style="background:#f0f9ff;border-left:4px solid #0ea5e9;border-radius:0 8px 8px 0;padding:16px;margin-bottom:24px;">
+        <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;">${data.contenu}</p>
+      </div>
+      <a href="${data.dashboardUrl}" style="background:linear-gradient(135deg,#0ea5e9,#8b5cf6);color:white;padding:14px 32px;border-radius:100px;text-decoration:none;font-size:15px;font-weight:700;display:inline-block;">
+        Voir dans mon espace client →
+      </a>
+    </div>
+    <div style="background:#f9fafb;padding:24px 40px;border-top:1px solid #e5e7eb;">
+      <p style="margin:0;color:#9ca3af;font-size:12px;text-align:center;">© 2025 LINSAEM · contact@linsaem.fr</p>
+    </div>
+  </div>
+</body>
+</html>
+    `,
+  });
+}

@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
 import { getModificationsByClientId, createModification } from "@/lib/db";
 import { formatDate } from "@/lib/stripe";
 import { revalidatePath } from "next/cache";
@@ -11,15 +12,16 @@ const STATUT_CONFIG = {
 };
 
 export default async function ModificationsPage() {
-  const session = await auth();
-  const clientId = session?.user?.id || "";
+  const session = await getSession();
+  if (!session) redirect("/login");
+  const clientId = session.clientId;
 
   const modifications = await getModificationsByClientId(clientId).catch(() => []);
 
   async function submitModification(formData: FormData) {
     "use server";
-    const session = await auth();
-    if (!session?.user?.id) return;
+    const sess = await getSession();
+    if (!sess) return;
 
     const titre = formData.get("titre") as string;
     const description = formData.get("description") as string;
@@ -27,13 +29,7 @@ export default async function ModificationsPage() {
 
     if (!titre || !description) return;
 
-    await createModification({
-      clientId: session.user.id,
-      titre,
-      description,
-      priorite,
-    });
-
+    await createModification({ clientId: sess.clientId, titre, description, priorite });
     revalidatePath("/dashboard/modifications");
   }
 

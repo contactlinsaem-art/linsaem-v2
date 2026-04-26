@@ -1,22 +1,43 @@
-import { auth } from "@/auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { jwtVerify } from "jose";
 
-export default auth((req) => {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  const token = req.cookies.get("linsaem_session")?.value;
 
-  // Protéger toutes les routes /dashboard
-  if (pathname.startsWith("/dashboard") && !req.auth) {
-    return NextResponse.redirect(new URL("/login", req.url));
+  const isProtected =
+    pathname.startsWith("/dashboard") || pathname.startsWith("/admin");
+  const isAuth =
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/set-password";
+
+  if (isProtected) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+    try {
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      await jwtVerify(token, secret);
+      return NextResponse.next();
+    } catch {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 
-  // Rediriger si déjà connecté et sur /login
-  if (pathname === "/login" && req.auth) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+  if (isAuth && token) {
+    try {
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      await jwtVerify(token, secret);
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    } catch {
+      return NextResponse.next();
+    }
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/login", "/register", "/set-password"],
 };

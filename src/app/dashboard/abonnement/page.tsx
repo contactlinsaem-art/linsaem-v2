@@ -1,13 +1,14 @@
-import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
 import { getAbonnementByClientId, getFacturesByClientId, FORMULES } from "@/lib/db";
 import { createBillingPortalSession, formatDate, formatPrice } from "@/lib/stripe";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ExternalLink, CreditCard, CheckCircle, AlertCircle, Download } from "lucide-react";
 
 export default async function AbonnementPage() {
-  const session = await auth();
-  const clientId = session?.user?.id || "";
+  const session = await getSession();
+  if (!session) redirect("/login");
+  const clientId = session.clientId;
 
   const [abonnement, factures] = await Promise.all([
     getAbonnementByClientId(clientId).catch(() => null),
@@ -16,14 +17,15 @@ export default async function AbonnementPage() {
 
   const formule = abonnement?.formule ? FORMULES[abonnement.formule as keyof typeof FORMULES] : null;
 
-  async function openBillingPortal() {
+  async function openBillingPortal(formData: FormData) {
     "use server";
-    if (!abonnement?.stripe_customer_id) return;
-    const session = await createBillingPortalSession(
-      abonnement.stripe_customer_id,
+    const customerId = formData.get("customerId") as string;
+    if (!customerId) return;
+    const portalSession = await createBillingPortalSession(
+      customerId,
       `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/abonnement`
     );
-    redirect(session.url);
+    redirect(portalSession.url);
   }
 
   return (
@@ -47,7 +49,9 @@ export default async function AbonnementPage() {
                   {abonnement.statut === "actif" ? "Actif" : abonnement.statut}
                 </span>
               </div>
-              <div className="text-3xl font-extrabold gradient-text mb-1">{formatPrice(formule.prix)}<span className="text-base font-normal text-gray-400">/mois</span></div>
+              <div className="text-3xl font-extrabold gradient-text mb-1">
+                {formatPrice(formule.prix)}<span className="text-base font-normal text-gray-400">/mois</span>
+              </div>
               <div className="text-sm text-gray-400">
                 Depuis le {abonnement.date_debut ? formatDate(abonnement.date_debut) : "—"}
               </div>
@@ -55,10 +59,8 @@ export default async function AbonnementPage() {
 
             {abonnement.stripe_customer_id && (
               <form action={openBillingPortal}>
-                <button
-                  type="submit"
-                  className="btn-outline flex items-center gap-2"
-                >
+                <input type="hidden" name="customerId" value={abonnement.stripe_customer_id} />
+                <button type="submit" className="btn-outline flex items-center gap-2">
                   <CreditCard size={16} />
                   Gérer le paiement
                   <ExternalLink size={13} />
@@ -71,9 +73,7 @@ export default async function AbonnementPage() {
             <div className="text-4xl mb-4">📋</div>
             <h3 className="font-bold text-gray-900 mb-2">Aucun abonnement actif</h3>
             <p className="text-gray-500 text-sm mb-6">Choisissez une formule pour lancer votre site web.</p>
-            <Link href="/#tarifs" className="btn-gradient">
-              Voir les formules →
-            </Link>
+            <Link href="/#tarifs" className="btn-gradient">Voir les formules →</Link>
           </div>
         )}
       </div>
@@ -81,7 +81,6 @@ export default async function AbonnementPage() {
       {/* Factures */}
       <div className="card p-6">
         <h2 className="font-bold text-gray-900 mb-5">Historique des factures</h2>
-
         {factures.length === 0 ? (
           <div className="text-center py-8 text-gray-400">
             <div className="text-3xl mb-2">🧾</div>
@@ -93,7 +92,7 @@ export default async function AbonnementPage() {
               <thead>
                 <tr className="border-b border-gray-100">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Date</th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Montant</th>
+                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Montant TTC</th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Statut</th>
                   <th className="text-right py-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">PDF</th>
                 </tr>
