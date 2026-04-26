@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         let resolvedClient: { id: string; name: string; email: string } | null = null;
         if (clientId) {
           const rows = await sql`SELECT id, name, email FROM clients WHERE id = ${clientId} LIMIT 1`;
-          resolvedClient = rows[0] || null;
+          resolvedClient = (rows[0] as { id: string; name: string; email: string }) || null;
         }
         if (!resolvedClient && customerEmail) {
           resolvedClient = await createClient(customerName, customerEmail);

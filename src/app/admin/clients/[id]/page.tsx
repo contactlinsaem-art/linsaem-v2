@@ -27,7 +27,7 @@ export default async function AdminClientDetailPage({ params }: { params: Promis
             <p className="text-sm text-gray-400">Aucun message.</p>
           ) : (
             <div className="space-y-3 max-h-80 overflow-y-auto">
-              {data.messages.map((msg: { id: string; expediteur: string; contenu: string; created_at: string }) => (
+              {data.messages.map((msg) => (
                 <div key={msg.id} className={`rounded-xl px-4 py-3 text-sm ${
                   msg.expediteur === "admin"
                     ? "bg-violet-50 text-violet-800"
@@ -58,7 +58,7 @@ export default async function AdminClientDetailPage({ params }: { params: Promis
                 </tr>
               </thead>
               <tbody>
-                {data.factures.map((f: { id: string; created_at: string; montant: number; statut: string }) => (
+                {data.factures.map((f) => (
                   <tr key={f.id} className="border-b border-gray-50">
                     <td className="py-2 text-gray-500">{formatDate(f.created_at)}</td>
                     <td className="py-2 font-medium">{(f.montant / 100).toFixed(2)} €</td>

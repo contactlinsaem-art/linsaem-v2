@@ -18,7 +18,7 @@ export async function PATCH(req: NextRequest) {
   if (!clientId) return NextResponse.json({ error: "clientId requis" }, { status: 400 });
 
   const oldSite = await getSiteByClientId(clientId).catch(() => null);
-  await updateSite(clientId, { statut, url, notes });
+  await updateSite(clientId, statut, url || null, notes || null);
 
   // Notifier si site passe en ligne
   if (statut === "en_ligne" && oldSite?.statut !== "en_ligne") {

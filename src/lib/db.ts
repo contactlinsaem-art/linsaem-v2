@@ -149,7 +149,7 @@ export async function createModification(data: {
 // CLIENT MANAGEMENT
 // ============================================
 
-export async function createClient(name: string, email: string) {
+export async function createClient(name: string, email: string): Promise<{ id: string; name: string; email: string }> {
   const sql = getDb();
   const rows = await sql`
     INSERT INTO clients (name, email)
@@ -157,7 +157,7 @@ export async function createClient(name: string, email: string) {
     ON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name
     RETURNING *
   `;
-  return rows[0];
+  return rows[0] as { id: string; name: string; email: string };
 }
 
 export async function setClientPassword(clientId: string, hashedPassword: string) {
