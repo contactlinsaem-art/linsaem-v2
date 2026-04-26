@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { getSession } from "@/lib/auth";
 import { createCheckoutSession, PLANS } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await auth();
-    if (!session?.user?.email) {
+    const session = await getSession();
+    if (!session?.email) {
       return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
     }
 
@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
 
     const checkoutSession = await createCheckoutSession({
       priceId: planConfig.priceId,
-      customerEmail: session.user.email,
-      clientId: session.user.id || "",
+      customerEmail: session.email,
+      clientId: session.clientId,
       planName: planConfig.name,
       successUrl: `${appUrl}/dashboard?success=true`,
       cancelUrl: `${appUrl}/#tarifs`,

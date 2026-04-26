@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { getSession } from "@/lib/auth";
 import { createModification } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const session = await getSession();
+  if (!session?.clientId) {
     return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
   }
   try {
     const body = await req.json();
     const modification = await createModification({
-      clientId: session.user.id,
+      clientId: session.clientId,
       titre: body.titre,
       description: body.description,
       priorite: body.priorite,
