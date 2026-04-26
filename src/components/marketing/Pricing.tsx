@@ -128,7 +128,19 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="text-center text-xs text-gray-400 mt-8">* Frais de mise en service : 50€ TTC (unique, à la création)</p>
+        <div className="text-center mt-8">
+          <a
+            href="https://buy.stripe.com/4gM4gB3JvdsHarecpZ1ck00"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400"
+          >
+            💳 Réserver votre site / Payer maintenant
+          </a>
+          <p className="text-xs text-gray-400 mt-2">
+            * Frais uniques à la création de votre site : à partir 50€ TTC
+          </p>
+        </div>
       </div>
     </section>
   );

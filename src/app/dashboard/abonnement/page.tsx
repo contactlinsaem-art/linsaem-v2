@@ -57,16 +57,26 @@ export default async function AbonnementPage() {
               </div>
             </div>
 
-            {abonnement.stripe_customer_id && (
-              <form action={openBillingPortal}>
-                <input type="hidden" name="customerId" value={abonnement.stripe_customer_id} />
-                <button type="submit" className="btn-outline flex items-center gap-2">
-                  <CreditCard size={16} />
-                  Gérer le paiement
-                  <ExternalLink size={13} />
-                </button>
-              </form>
-            )}
+            <div className="flex flex-col gap-2">
+              {abonnement.stripe_customer_id && (
+                <form action={openBillingPortal}>
+                  <input type="hidden" name="customerId" value={abonnement.stripe_customer_id} />
+                  <button type="submit" className="btn-outline flex items-center gap-2">
+                    <CreditCard size={16} />
+                    Gérer le paiement
+                    <ExternalLink size={13} />
+                  </button>
+                </form>
+              )}
+              <a
+                href="https://buy.stripe.com/4gM4gB3JvdsHarecpZ1ck00"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm border border-gray-200 text-gray-600 px-4 py-2.5 rounded-xl hover:border-gray-400 hover:text-gray-900 transition-all"
+              >
+                💳 Payer les frais de mise en service
+              </a>
+            </div>
           </div>
         ) : (
           <div className="text-center py-8">

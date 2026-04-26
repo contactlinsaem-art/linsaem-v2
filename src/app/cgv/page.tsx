@@ -48,6 +48,14 @@ export default function CGVPage() {
             <section>
               <h2 className="text-lg font-bold text-gray-900 mb-3">3. Commande et acceptation</h2>
               <p>La commande est validée après acceptation du devis et paiement de la première mensualité via Stripe. Des frais de mise en service de 50€ TTC sont facturés une seule fois lors de la création du site. Ces frais couvrent la configuration technique, l&apos;achat du nom de domaine et la mise en ligne initiale. Le Prestataire se réserve le droit de refuser toute commande pour motif légitime.</p>
+              <a
+                href="https://buy.stripe.com/4gM4gB3JvdsHarecpZ1ck00"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sky-500 hover:text-sky-600 text-sm font-medium transition-colors mt-2"
+              >
+                → Payer les frais de mise en service
+              </a>
             </section>
 
             <section>
