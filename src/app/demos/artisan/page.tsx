@@ -127,12 +127,18 @@ export default function ArtisanPage() {
               ))}
             </div>
           </div>
-          <div className="rounded-2xl p-10 text-center" style={{ background: "#1e3a5f" }}>
-            <div className="text-5xl mb-4">🏆</div>
-            <div className="text-4xl font-extrabold text-white mb-2">4,9/5</div>
-            <div className="text-blue-200 mb-4">sur Google Reviews</div>
-            <div className="text-3xl">⭐⭐⭐⭐⭐</div>
-            <div className="text-blue-300 text-sm mt-2">Basé sur 234 avis</div>
+          <div className="rounded-2xl overflow-hidden relative" style={{ minHeight: 320 }}>
+            <img
+              src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=600&q=80"
+              alt="Plombier au travail"
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", minHeight: 320, position: "absolute", inset: 0 }}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ background: "rgba(30,58,95,0.78)" }}>
+              <div className="text-4xl font-extrabold text-white mb-2">4,9/5</div>
+              <div className="text-blue-200 mb-3">sur Google Reviews</div>
+              <div className="text-2xl">⭐⭐⭐⭐⭐</div>
+              <div className="text-blue-300 text-sm mt-2">Basé sur 234 avis</div>
+            </div>
           </div>
         </div>
       </section>

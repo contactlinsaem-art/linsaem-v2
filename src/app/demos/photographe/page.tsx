@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 
 const GALLERY = [
-  { id: 1, title: "Portrait Studio", category: "Portraits", h: 256, gradient: "linear-gradient(135deg,#f43f5e,#be185d)" },
-  { id: 2, title: "Mariage en Provence", category: "Mariages", h: 192, gradient: "linear-gradient(135deg,#f59e0b,#ea580c)" },
-  { id: 3, title: "Fashion Week Paris", category: "Mode", h: 288, gradient: "linear-gradient(135deg,#7c3aed,#4f46e5)" },
-  { id: 4, title: "Soirée Entreprise", category: "Événements", h: 192, gradient: "linear-gradient(135deg,#0ea5e9,#2563eb)" },
-  { id: 5, title: "Couple Bohème", category: "Mariages", h: 256, gradient: "linear-gradient(135deg,#10b981,#0d9488)" },
-  { id: 6, title: "Portrait Artistique", category: "Portraits", h: 224, gradient: "linear-gradient(135deg,#ef4444,#ec4899)" },
+  { id: 1, title: "Portrait Studio",      category: "Portraits",   h: 256, image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" },
+  { id: 2, title: "Mariage en Provence",   category: "Mariages",    h: 192, image: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600&q=80" },
+  { id: 3, title: "Fashion Week Paris",    category: "Mode",        h: 288, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" },
+  { id: 4, title: "Soirée Entreprise",     category: "Événements",  h: 192, image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" },
+  { id: 5, title: "Couple Bohème",         category: "Mariages",    h: 256, image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80" },
+  { id: 6, title: "Portrait Artistique",   category: "Portraits",   h: 224, image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" },
 ];
 
 const TESTIMONIALS = [
@@ -92,9 +92,10 @@ export default function PhotographePage() {
                 onMouseEnter={() => setHovered(item.id)}
                 onMouseLeave={() => setHovered(null)}
               >
-                <div
-                  className="w-full transition-transform duration-500"
-                  style={{ height: item.h, background: item.gradient, transform: hovered === item.id ? "scale(1.05)" : "scale(1)" }}
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  style={{ width: "100%", height: item.h, objectFit: "cover", display: "block", transition: "transform 500ms ease", transform: hovered === item.id ? "scale(1.05)" : "scale(1)" }}
                 />
                 <div
                   className="absolute inset-0 flex flex-col items-center justify-center rounded-xl transition-opacity duration-300"

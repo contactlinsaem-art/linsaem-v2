@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 
 const PROJECTS = [
-  { title: "Villa Contemporaine", category: "Résidentiel", gradient: "linear-gradient(135deg,#4a3728,#2d1f14)" },
-  { title: "Tour de Bureaux", category: "Commercial", gradient: "linear-gradient(135deg,#2d3748,#1a202c)" },
-  { title: "Loft Haussmannien", category: "Rénovation", gradient: "linear-gradient(135deg,#3d4852,#252d36)" },
-  { title: "Spa de Luxe", category: "Intérieur", gradient: "linear-gradient(135deg,#3a3530,#1e1a17)" },
+  { title: "Villa Contemporaine", category: "Résidentiel", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80" },
+  { title: "Tour de Bureaux",     category: "Commercial",  image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80" },
+  { title: "Loft Haussmannien",   category: "Rénovation",  image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80" },
+  { title: "Spa de Luxe",         category: "Intérieur",   image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=700&q=80" },
 ];
 
 const TEAM = [
@@ -136,9 +136,10 @@ export default function ArchitectePage() {
                 onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
-                <div
-                  className="proj-img absolute inset-0"
-                  style={{ background: p.gradient }}
+                <img
+                  className="proj-img absolute inset-0 w-full h-full object-cover"
+                  src={p.image}
+                  alt={p.title}
                 />
                 <div
                   className="proj-overlay absolute inset-0 flex flex-col items-center justify-center"

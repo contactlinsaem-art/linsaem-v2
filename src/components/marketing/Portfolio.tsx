@@ -18,7 +18,7 @@ const PROJECTS = [
     tags: ["Showcase", "Mode", "Sur-mesure"],
     href: "/demos/vitrine",
     bg: "from-stone-800 to-stone-600",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80",
   },
   {
     title: "La Boulangerie Dorée",
@@ -28,7 +28,7 @@ const PROJECTS = [
     tags: ["Starter", "One-page", "Livré en 48h"],
     href: "/demos/boulangerie",
     bg: "from-amber-50 to-orange-50",
-    image: "https://www.linsaem.fr/images/photo-1509440159596-0249088772ff.jpg",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80",
   },
   {
     title: "Plomberie Martin",
@@ -38,7 +38,7 @@ const PROJECTS = [
     tags: ["Pro", "3 pages", "SEO optimisé"],
     href: "/demos/artisan",
     bg: "from-blue-50 to-sky-50",
-    image: "https://www.linsaem.fr/images/photo-1581578731548-c64695cc6952.jpg",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
   },
   {
     title: "Studio Architecture Moderne",
@@ -48,7 +48,7 @@ const PROJECTS = [
     tags: ["Pro", "Portfolio", "Design premium"],
     href: "/demos/architecte",
     bg: "from-stone-50 to-gray-50",
-    image: "https://www.linsaem.fr/images/photo-1503387762-592deb58ef4e.jpg",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
   },
   {
     title: "Sophie Lens Photographe",
@@ -58,7 +58,7 @@ const PROJECTS = [
     tags: ["Business", "E-commerce", "Réservation"],
     href: "/demos/photographe",
     bg: "from-rose-50 to-pink-50",
-    image: "https://www.linsaem.fr/images/photo-1542038784456-1ea8e935640e.jpg",
+    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=80",
   },
   {
     title: "La Table Provençale",
