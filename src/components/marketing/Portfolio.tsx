@@ -1,10 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 const PROJECTS = [
+  {
+    title: "CÉLESTE — Boutique Mode",
+    category: "Site Vitrine Showcase",
+    desc: "Un site boutique élégant avec lookbook, galerie filtrée, carousel et animations soignées. Tout ce qu'on peut créer pour vous.",
+    features: [
+      "Lookbook interactif avec carousel",
+      "Galerie collection avec filtres",
+      "Animations au scroll élégantes",
+      "Design bohème chic sur-mesure",
+    ],
+    tags: ["Showcase", "Mode", "Sur-mesure"],
+    href: "/demos/vitrine",
+    bg: "from-stone-800 to-stone-600",
+    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80",
+  },
   {
     title: "La Boulangerie Dorée",
     category: "Site Vitrine",
@@ -69,9 +84,56 @@ const PROJECTS = [
 
 export function Portfolio() {
   const [current, setCurrent] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [progressKey, setProgressKey] = useState(0);
+  const pauseUntilRef = useRef<number>(0);
+  const touchStartXRef = useRef<number | null>(null);
 
-  const prev = () => setCurrent((c) => (c - 1 + PROJECTS.length) % PROJECTS.length);
-  const next = () => setCurrent((c) => (c + 1) % PROJECTS.length);
+  const goTo = useCallback((index: number) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setProgressKey((k) => k + 1);
+      setIsAnimating(false);
+    }, 300);
+  }, [isAnimating]);
+
+  const prev = useCallback(() => {
+    pauseUntilRef.current = Date.now() + 10000;
+    goTo((current - 1 + PROJECTS.length) % PROJECTS.length);
+  }, [current, goTo]);
+
+  const next = useCallback(() => {
+    pauseUntilRef.current = Date.now() + 10000;
+    goTo((current + 1) % PROJECTS.length);
+  }, [current, goTo]);
+
+  // Auto-play
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Date.now() < pauseUntilRef.current) return;
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrent((c) => (c + 1) % PROJECTS.length);
+        setProgressKey((k) => k + 1);
+        setIsAnimating(false);
+      }, 300);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Touch / swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    touchStartXRef.current = null;
+    if (deltaX < -50) next();
+    else if (deltaX > 50) prev();
+  };
 
   const project = PROJECTS[current];
 
@@ -85,7 +147,13 @@ export function Portfolio() {
         </div>
 
         <div className="relative max-w-5xl mx-auto">
-          <div key={current} className={`card overflow-hidden bg-gradient-to-br ${project.bg} border-0`}>
+          <div
+            className={`card overflow-hidden bg-gradient-to-br ${project.bg} border-0 transition-all duration-300 ease-in-out ${
+              isAnimating ? "opacity-0 scale-95 translate-x-4" : "opacity-100 scale-100 translate-x-0"
+            }`}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="grid lg:grid-cols-2 gap-0">
               {/* Visual side */}
               <div className={`bg-gradient-to-br ${project.bg} relative overflow-hidden min-h-64`}>
@@ -151,29 +219,58 @@ export function Portfolio() {
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={prev}
-              className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
+              disabled={isAnimating}
+              className={`w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all shadow-sm group ${
+                isAnimating ? "pointer-events-none opacity-50" : ""
+              }`}
               aria-label="Précédent"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={18} className="transition-transform group-hover:-translate-x-0.5" />
             </button>
-            <div className="flex gap-2">
+
+            {/* Progress bars */}
+            <div className="flex gap-2 items-center">
               {PROJECTS.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${i === current ? "w-6 bg-sky-500" : "bg-gray-300"}`}
+                  onClick={() => { pauseUntilRef.current = Date.now() + 10000; goTo(i); }}
+                  className="relative h-1.5 rounded-full overflow-hidden bg-gray-200 transition-all"
+                  style={{ width: i === current ? "48px" : "8px" }}
                   aria-label={`Projet ${i + 1}`}
-                />
+                >
+                  {i === current && (
+                    <span
+                      key={progressKey}
+                      className="absolute inset-y-0 left-0 rounded-full"
+                      style={{
+                        background: "linear-gradient(to right, #0ea5e9, #8b5cf6)",
+                        animation: "progress-fill 5s linear forwards",
+                        width: "0%",
+                      }}
+                    />
+                  )}
+                </button>
               ))}
             </div>
+
             <button
               onClick={next}
-              className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
+              disabled={isAnimating}
+              className={`w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all shadow-sm group ${
+                isAnimating ? "pointer-events-none opacity-50" : ""
+              }`}
               aria-label="Suivant"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={18} className="transition-transform group-hover:translate-x-0.5" />
             </button>
           </div>
+
+          <style>{`
+            @keyframes progress-fill {
+              from { width: 0%; }
+              to { width: 100%; }
+            }
+          `}</style>
         </div>
 
         <div className="text-center mt-12">
