@@ -19,6 +19,16 @@ export const metadata: Metadata = {
     "site vitrine",
     "design web",
     "5,99€/mois",
+    "site web professionnel",
+    "site web pas cher",
+    "hébergement inclus",
+    "site web abonnement mensuel",
+    "agence web France",
+    "création site web PME",
+    "site web artisan",
+    "site web commerçant",
+    "création site web 48h",
+    "site web maintenance incluse",
   ],
   authors: [{ name: "LINSAEM", url: "https://www.linsaem.fr" }],
   creator: "LINSAEM",
@@ -48,9 +58,22 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   alternates: { canonical: "https://www.linsaem.fr" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -71,9 +94,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
+              "@id": "https://www.linsaem.fr/#organization",
               name: "LINSAEM",
               url: "https://www.linsaem.fr",
-              description: "Agence de création web professionnelle à prix accessible",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.linsaem.fr/icon.svg",
+                width: 32,
+                height: 32,
+              },
+              description: "Agence de création de sites web professionnels à prix accessible — dès 5,99€/mois, hébergement et maintenance inclus.",
               email: "contact@linsaem.fr",
               telephone: "+33189701526",
               address: { "@type": "PostalAddress", addressCountry: "FR" },
@@ -115,13 +145,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
+              "@id": "https://www.linsaem.fr/#website",
               name: "LINSAEM",
               url: "https://www.linsaem.fr",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://www.linsaem.fr/?s={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
+              publisher: { "@id": "https://www.linsaem.fr/#organization" },
             }),
           }}
         />
