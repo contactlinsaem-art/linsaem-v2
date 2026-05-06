@@ -13,9 +13,17 @@ export default async function AdminClientsPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-2xl font-extrabold text-gray-900">Clients</h1>
-        <p className="text-gray-500 mt-1">{clients.length} client(s) au total</p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-extrabold text-gray-900">Clients</h1>
+          <p className="text-gray-500 mt-1">{clients.length} client(s) au total</p>
+        </div>
+        <Link
+          href="/admin/clients/create"
+          className="btn-primary text-sm"
+        >
+          + Nouveau client
+        </Link>
       </div>
 
       <div className="card overflow-hidden">

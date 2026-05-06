@@ -279,6 +279,37 @@ export async function getAllClients() {
   return rows;
 }
 
+export async function createClientManual(data: {
+  name: string;
+  email: string;
+  phone?: string;
+  formule: string;
+}) {
+  const sql = getDb();
+  const token = crypto.randomUUID();
+  const rows = await sql`
+    INSERT INTO clients (name, email, phone, password_set, reset_token, reset_token_expires)
+    VALUES (
+      ${data.name},
+      ${data.email},
+      ${data.phone || null},
+      false,
+      ${token},
+      NOW() + INTERVAL '7 days'
+    )
+    ON CONFLICT (email) DO NOTHING
+    RETURNING *
+  `;
+  return rows[0] as {
+    id: string;
+    name: string;
+    email: string;
+    phone: string | null;
+    reset_token: string;
+    password_set: boolean;
+  };
+}
+
 export async function getClientWithDetails(clientId: string) {
   const sql = getDb();
   const [clientRows, abonnementRows, siteRows, facturesRows, messagesRows] = await Promise.all([
