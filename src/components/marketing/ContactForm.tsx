@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
-import { Send, CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Send } from "lucide-react";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", phone: "", formule: "", message: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,28 +18,11 @@ export function ContactForm() {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error();
-      setStatus("success");
-      setForm({ name: "", email: "", phone: "", formule: "", message: "" });
+      router.push("/merci");
     } catch {
       setStatus("error");
     }
   };
-
-  if (status === "success") {
-    return (
-      <section id="contact" className="py-28 bg-gray-50">
-        <div className="max-w-xl mx-auto px-6 text-center">
-          <div className="card p-12">
-            <CheckCircle size={56} className="text-green-500 mx-auto mb-6" />
-            <h3 className="text-2xl font-extrabold text-gray-900 mb-3">Merci {form.name || ""} !</h3>
-            <p className="text-gray-500">
-              Votre demande a bien été envoyée. Nous vous recontactons sous 24h avec une proposition personnalisée.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section id="contact" className="py-28 bg-gray-50">
