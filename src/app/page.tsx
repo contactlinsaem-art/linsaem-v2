@@ -27,6 +27,7 @@ import { FAQ } from "@/components/marketing/FAQ";
 import { ContactForm } from "@/components/marketing/ContactForm";
 import { Footer } from "@/components/marketing/Footer";
 import { BackToTop } from "@/components/marketing/BackToTop";
+import { FloatingCTA } from "@/components/marketing/FloatingCTA";
 
 export default function HomePage() {
   return (
@@ -48,6 +49,7 @@ export default function HomePage() {
       </main>
       <Footer />
       <BackToTop />
+      <FloatingCTA />
     </>
   );
 }
