@@ -24,7 +24,7 @@ export default function PolitiqueDeConfidentialite() {
             <p>
               <strong>LINSAEM</strong><br />
               Email : <a href="mailto:contact@linsaem.fr" className="text-sky-500 hover:underline">contact@linsaem.fr</a><br />
-              Téléphone : <a href="tel:+33189701526" className="text-sky-500 hover:underline">+33 1 89 70 15 26</a>
+              Téléphone : <a href="tel:+33625734335" className="text-sky-500 hover:underline">+33 6 25 73 43 35</a>
             </p>
           </section>
 

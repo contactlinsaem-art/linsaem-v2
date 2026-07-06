@@ -60,7 +60,7 @@ export async function sendContactConfirmation(data: {
       <div style="border-top:1px solid #e5e7eb;padding-top:24px;">
         <p style="color:#6b7280;font-size:14px;margin:0 0 8px;">Des questions ? Contactez-nous directement :</p>
         <a href="mailto:contact@linsaem.fr" style="color:#0ea5e9;font-size:14px;text-decoration:none;">📧 contact@linsaem.fr</a>&nbsp;&nbsp;
-        <a href="tel:+33189701526" style="color:#0ea5e9;font-size:14px;text-decoration:none;">📱 +33 1 89 70 15 26</a>
+        <a href="tel:+33625734335" style="color:#0ea5e9;font-size:14px;text-decoration:none;">📱 +33 6 25 73 43 35</a>
       </div>
     </div>
 
@@ -181,7 +181,7 @@ export async function sendOrderConfirmation(data: {
     </div>
 
     <div style="background:#f9fafb;padding:24px 40px;border-top:1px solid #e5e7eb;">
-      <p style="margin:0;color:#9ca3af;font-size:12px;text-align:center;">© 2025 LINSAEM · contact@linsaem.fr · +33 1 89 70 15 26</p>
+      <p style="margin:0;color:#9ca3af;font-size:12px;text-align:center;">© 2025 LINSAEM · contact@linsaem.fr · +33 6 25 73 43 35</p>
     </div>
   </div>
 </body>

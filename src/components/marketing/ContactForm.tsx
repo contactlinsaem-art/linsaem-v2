@@ -39,7 +39,7 @@ export function ContactForm() {
             <div className="space-y-5">
               {[
                 { icon: "📧", label: "Email", value: "contact@linsaem.fr", href: "mailto:contact@linsaem.fr" },
-                { icon: "📱", label: "Téléphone / WhatsApp", value: "+33 1 89 70 15 26", href: "tel:+33189701526" },
+                { icon: "📱", label: "Téléphone / WhatsApp", value: "+33 6 25 73 43 35", href: "tel:+33625734335" },
                 { icon: "⏰", label: "Réponse", value: "Sous 24h max", href: null },
               ].map((m) => (
                 <div key={m.label} className="flex items-center gap-4">

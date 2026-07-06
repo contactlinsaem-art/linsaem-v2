@@ -22,7 +22,7 @@ export default function MentionsLegalesPage() {
               <p>
                 Le site <strong>linsaem.fr</strong> est édité par LINSAEM, entreprise individuelle.<br />
                 Email : <a href="mailto:contact@linsaem.fr" className="text-sky-500">contact@linsaem.fr</a><br />
-                Téléphone : <a href="tel:+33189701526" className="text-sky-500">+33 1 89 70 15 26</a>
+                Téléphone : <a href="tel:+33625734335" className="text-sky-500">+33 6 25 73 43 35</a>
               </p>
             </section>
 

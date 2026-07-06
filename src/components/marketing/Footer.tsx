@@ -44,7 +44,7 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm">
               <li><a href="mailto:contact@linsaem.fr" className="hover:text-white transition-colors">📧 contact@linsaem.fr</a></li>
-              <li><a href="tel:+33189701526" className="hover:text-white transition-colors">📱 +33 1 89 70 15 26</a></li>
+              <li><a href="tel:+33625734335" className="hover:text-white transition-colors">📱 +33 6 25 73 43 35</a></li>
               <li className="pt-2">
                 <Link href="/login" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-sm px-4 py-2 rounded-full transition-colors">
                   Mon espace client →

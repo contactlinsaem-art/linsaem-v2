@@ -94,7 +94,7 @@ export default function ArtisanPage() {
       {/* URGENCY BAND */}
       <div className="py-4 px-6 text-center font-bold" style={{ background: "#f97316", color: "white" }}>
         🔧 Urgence plomberie ? Intervention en moins de 2h — Appelez le{" "}
-        <a href="tel:+33189701526" className="underline">+33 1 89 70 15 26</a>
+        <a href="tel:+33625734335" className="underline">+33 6 25 73 43 35</a>
       </div>
 
       {/* SERVICES */}
@@ -214,7 +214,7 @@ export default function ArtisanPage() {
       {/* FOOTER */}
       <footer className="py-10 px-6 text-center" style={{ background: "#1e3a5f", color: "#93c5fd" }}>
         <p className="text-2xl font-extrabold text-white mb-2">Plomberie Martin</p>
-        <p className="text-sm">Île-de-France • +33 1 89 70 15 26 • contact@plomberie-martin.fr</p>
+        <p className="text-sm">Île-de-France • +33 6 25 73 43 35 • contact@plomberie-martin.fr</p>
         <p className="text-xs mt-4 opacity-50">© 2025 Plomberie Martin. Tous droits réservés.</p>
       </footer>
     </div>

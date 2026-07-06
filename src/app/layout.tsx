@@ -105,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
               description: "Agence de création de sites web professionnels à prix accessible — dès 5,99€/mois, hébergement et maintenance inclus.",
               email: "contact@linsaem.fr",
-              telephone: "+33189701526",
+              telephone: "+33625734335",
               address: { "@type": "PostalAddress", addressCountry: "FR" },
               sameAs: [
                 "https://www.facebook.com/linsaem",
