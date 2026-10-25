@@ -1,9 +1,19 @@
-.env.local
-.env
-.next/
+# dépendances et build
 node_modules/
-.vercel/
-*.log
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
 
-.vercel
+# environnement
+.env
 .env*.local
+.vercel/
+
+# tests
+playwright-report/
+test-results/
+
+# divers
+*.log
+.DS_Store

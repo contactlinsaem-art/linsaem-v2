@@ -1,92 +1,145 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 100%);
-  --gradient-alt: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 50%, #ec4899 100%);
+@theme inline {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  /* Marque : le dégradé n'est utilisé qu'en décor, jamais comme couleur de texte courant. */
+  --color-brand-sky: #0ea5e9;
+  --color-brand-violet: #8b5cf6;
+  --color-brand-pink: #ec4899;
+  /* Accent lisible sur blanc (contraste 7:1) */
+  --color-accent: #6d28d9;
+  --color-accent-soft: #f5f3ff;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
-
-  * {
-    box-sizing: border-box;
+  body {
+    @apply bg-white text-slate-900 antialiased;
   }
-}
-
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center gap-2 bg-[#111827] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20;
+  [id] {
+    scroll-margin-top: 6rem;
   }
-
-  .btn-gradient {
-    @apply inline-flex items-center gap-2 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:-translate-y-0.5 hover:shadow-lg;
-    background: var(--gradient-alt);
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
   }
-
-  .btn-outline {
-    @apply inline-flex items-center gap-2 border border-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold text-sm transition-all hover:border-gray-400 hover:bg-gray-50;
-  }
-
-  .card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm;
-  }
-
-  .section-tag {
-    @apply inline-flex items-center gap-2 text-xs font-semibold text-sky-600 bg-sky-50 px-3 py-1 rounded-full uppercase tracking-wider mb-4;
-  }
-
-  .gradient-text {
-    background: var(--gradient-alt);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-/* Smooth scroll offset for sticky nav */
-[id] {
-  scroll-margin-top: 80px;
+@utility bg-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-sky) 0%,
+    var(--color-brand-violet) 50%,
+    var(--color-brand-pink) 100%
+  );
 }
 
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+@utility text-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-sky) 0%,
+    var(--color-brand-violet) 50%,
+    var(--color-brand-pink) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-16px); }
-  to { opacity: 1; transform: translateX(0); }
+/*
+ * Apparition au défilement, sans JavaScript (CSS scroll-driven animations).
+ * Navigateurs sans support ou animations réduites : le contenu est simplement visible.
+ */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.5s ease forwards;
+@utility reveal {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
 }
 
-.animate-slide-in {
-  animation: slideIn 0.4s ease forwards;
+/*
+ * Menu des modèles : fond transparent en haut de page, opaque après 80 px de défilement (sans JavaScript).
+ * Définir --nav-bg sur l'élément. Sans support : fond opaque d'emblée.
+ */
+@keyframes nav-fond {
+  to {
+    background-color: var(--nav-bg);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 0.08);
+  }
 }
 
-/* Stagger children */
-.stagger > * {
-  opacity: 0;
-  animation: fadeUp 0.5s ease forwards;
+@utility nav-on-scroll {
+  background-color: var(--nav-bg);
+  @supports (animation-timeline: scroll()) {
+    background-color: transparent;
+    animation: nav-fond linear both;
+    animation-timeline: scroll();
+    animation-range: 0 80px;
+  }
 }
-.stagger > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger > *:nth-child(2) { animation-delay: 0.1s; }
-.stagger > *:nth-child(3) { animation-delay: 0.15s; }
-.stagger > *:nth-child(4) { animation-delay: 0.2s; }
-.stagger > *:nth-child(5) { animation-delay: 0.25s; }
-.stagger > *:nth-child(6) { animation-delay: 0.3s; }
 
-/* Font stack fallback (Google Fonts chargées via <link> dans layout.tsx) */
-body {
-  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+/* Trait qui se dessine au chargement */
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
-code, pre {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+
+@utility grow-x {
+  transform-origin: left;
+  animation: grow-x 1.2s ease-out 0.4s both;
+}
+
+/* Bandeau défilant des modèles */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }

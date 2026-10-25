@@ -1,124 +1,62 @@
-# LINSAEM v2
+# linsaem.fr — v3
 
-Site web Next.js 15 avec espace client, Stripe, Resend et Auth.js.
+Site de LINSAEM : sites vitrines par abonnement et développement web sur mesure.
+Next.js 16 (pages statiques), Tailwind CSS v4, déployé sur Vercel (région `cdg1`).
 
-## Stack
+Pas de base de données, pas d'authentification, pas de code Stripe : les abonnements se gèrent dans le dashboard Stripe (liens de paiement envoyés à la main, portail client sans code).
 
-- **Next.js 15** (App Router)
-- **Auth.js v5** (Google + Email/Password)
-- **Vercel Postgres** (base de données)
-- **Stripe** (paiements & factures)
-- **Resend** (emails transactionnels)
-- **Tailwind CSS**
-
-## Installation locale
+## Démarrer
 
 ```bash
 npm install
-cp .env.example .env.local
-# Remplir les variables d'environnement
-npm run dev
+cp .env.example .env.local   # remplir les valeurs (voir ci-dessous)
+npm run dev                  # http://localhost:3000
 ```
 
-## Déploiement sur Vercel
+| Commande | Rôle |
+|---|---|
+| `npm run dev` | serveur de développement |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript |
+| `npm run build` | build de production |
+| `npm run test:e2e` | Playwright : formulaire de contact + audit d'accessibilité axe (WCAG AA) sur toutes les pages |
 
-### 1. Pusher sur GitHub
+Première utilisation de Playwright : `npx playwright install chromium`.
 
-```bash
-git init
-git add .
-git commit -m "feat: LINSAEM v2"
-git remote add origin https://github.com/votre-compte/linsaem-v2.git
-git push -u origin main
-```
+## Modifier le contenu
 
-### 2. Connecter à Vercel
+Tout le texte métier vient de `src/content/` :
 
-1. Aller sur [vercel.com](https://vercel.com) → New Project → Import depuis GitHub
-2. Vercel détecte automatiquement Next.js
-3. Cliquer **Deploy**
+| Fichier | Contenu |
+|---|---|
+| `entreprise.ts` | coordonnées, **mentions légales `[À REMPLIR]`**, délais affichés |
+| `offres.ts` | formules, prix TTC, frais de mise en service, process, offre développement |
+| `realisations.ts` | sites clients (`publie: false` tant que le client n'a pas donné son accord) et produits LINSAEM |
+| `modeles.ts` | les 7 modèles de design (le rendu de chacun est dans `src/components/modeles/`) |
+| `faq.ts` | FAQ de l'accueil, des sites vitrines et du développement (alimente aussi le JSON-LD) |
 
-### 3. Ajouter Vercel Postgres
+Un prix modifié dans `offres.ts` se répercute partout : cartes, CGV, JSON-LD, formulaire. Pensez à modifier le Price correspondant dans Stripe.
 
-Dashboard Vercel → Storage → Create → Postgres → Connecter au projet
-→ Les variables `POSTGRES_*` sont auto-ajoutées
+## Formulaire de contact
 
-### 4. Variables d'environnement (Vercel Dashboard → Settings → Env Vars)
+`src/app/(site)/contact/actions.tsx` (Server Action), dans cet ordre :
+champ piège → limite de 5 envois par heure et par IP (Upstash) → validation Zod → Cloudflare Turnstile → email à LINSAEM (Resend) → accusé de réception au visiteur, au **texte fixe** (aucune saisie recopiée).
 
-```
-AUTH_SECRET=          # openssl rand -base64 32
-AUTH_GOOGLE_ID=       # Google Cloud Console
-AUTH_GOOGLE_SECRET=   # Google Cloud Console
-RESEND_API_KEY=       # resend.com → API Keys
-RESEND_FROM_EMAIL=    contact@linsaem.fr
-RESEND_TO_EMAIL=      contact@linsaem.fr
-STRIPE_SECRET_KEY=    # dashboard.stripe.com
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_WEBHOOK_SECRET=  # stripe listen --forward-to ...
-STRIPE_STARTER_PRICE_ID=
-STRIPE_PRO_PRICE_ID=
-STRIPE_BUSINESS_PRICE_ID=
-NEXT_PUBLIC_APP_URL=  https://www.linsaem.fr
-```
+`CONTACT_DRY_RUN=1` désactive Turnstile, la limite et l'envoi (tests). Ce mode ne s'active jamais sur Vercel.
 
-### 5. Initialiser la base de données
+## Variables d'environnement (Vercel → Settings → Environment Variables)
 
-Dans Vercel Dashboard → Storage → Postgres → Query :
-```sql
--- Copier-coller le contenu du SCHEMA dans src/lib/db.ts
-```
+| Variable | Usage |
+|---|---|
+| `RESEND_API_KEY` | envoi des emails |
+| `CONTACT_FROM_EMAIL` | expéditeur (domaine vérifié dans Resend) |
+| `CONTACT_TO_EMAIL` | destinataire des demandes |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | limite par IP |
+| `STRIPE_PORTAL_URL` | lien « Gérer mon abonnement » et redirection de `/login`, `/dashboard` (lu au build) |
 
-### 6. Configurer Stripe
+À activer dans le dashboard Vercel : **Web Analytics** (mesure d'audience sans cookie).
 
-1. Créer 3 produits dans le dashboard Stripe (Starter, Pro, Business) avec facturation mensuelle
-2. Copier les Price IDs dans les variables d'environnement
-3. Configurer le webhook : `stripe listen --forward-to https://www.linsaem.fr/api/stripe/webhook`
-   - Événements : `customer.subscription.created`, `customer.subscription.deleted`, `invoice.payment_succeeded`, `invoice.payment_failed`
+## Redirections
 
-### 7. Configurer Resend
-
-1. Créer un compte sur [resend.com](https://resend.com)
-2. Vérifier le domaine `linsaem.fr` (ajouter les DNS records)
-3. Créer une API key et l'ajouter dans les variables Vercel
-
-### 8. Configurer Google OAuth
-
-1. [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials
-2. Créer OAuth 2.0 Client ID
-3. Authorized redirect URIs : `https://www.linsaem.fr/api/auth/callback/google`
-
-### 9. Pointer linsaem.fr vers Vercel
-
-Dans votre registrar DNS :
-- Type : `CNAME`
-- Name : `www`
-- Value : `cname.vercel-dns.com`
-
-Et configurer le domaine dans Vercel Dashboard → Settings → Domains.
-
-## Structure du projet
-
-```
-src/
-├── app/
-│   ├── page.tsx                    # Page d'accueil
-│   ├── login/page.tsx              # Connexion
-│   ├── dashboard/
-│   │   ├── layout.tsx              # Layout avec sidebar (protégé)
-│   │   ├── page.tsx                # Tableau de bord
-│   │   ├── abonnement/page.tsx     # Abonnement + factures
-│   │   └── modifications/page.tsx  # Demandes de modifications
-│   └── api/
-│       ├── auth/[...nextauth]/     # Auth.js handler
-│       ├── contact/route.ts        # Formulaire → Resend
-│       ├── stripe/
-│       │   ├── checkout/route.ts   # Créer session Stripe
-│       │   └── webhook/route.ts    # Webhooks Stripe
-│       └── modifications/route.ts  # API modifications
-├── components/
-│   └── marketing/                  # Tous les composants de la page d'accueil
-└── lib/
-    ├── db.ts                       # Schéma + helpers Postgres
-    ├── emails.ts                   # Templates Resend
-    └── stripe.ts                   # Helpers Stripe
-```
+Dans `next.config.ts` : `/login` et `/dashboard/*` → portail Stripe ; `/demos/*` → `/modeles/*` ; `/politique-de-confidentialite` → `/confidentialite` ; anciennes routes v2 (`/admin`, `/set-password`…) et pages `.html` de la v1.
