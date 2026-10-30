@@ -22,7 +22,7 @@ export default function RealisationsPage() {
 
       {sitesClients.length > 0 && (
         <Section id="clients" tone="muted" title="Sites clients">
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {sitesClients.map((r) => (
               <RealisationCard key={r.url} realisation={r} />
             ))}

@@ -10,27 +10,27 @@ export type Realisation = {
 };
 
 export const realisations: Realisation[] = [
-  // Sites clients — à publier un par un après accord
+  // Sites clients — publiés avec l'accord des clients
   {
     nom: "fatuiali.fr",
     url: "https://fatuiali.fr",
     type: "client",
     description: "Site vitrine pour une prestataire de ménage à domicile dans le Val-d'Oise et la Seine-Saint-Denis : quatre formules détaillées, zone d'intervention, demande de devis et contact WhatsApp.",
-    publie: false,
+    publie: true,
   },
   {
     nom: "auxmilleetunebeautes.fr",
     url: "https://auxmilleetunebeautes.fr",
     type: "client",
     description: "Site vitrine pour une esthéticienne à La Ciotat, en cabinet et à domicile : présentation des soins, grille tarifaire complète par catégorie, horaires et prise de rendez-vous.",
-    publie: false,
+    publie: true,
   },
   {
     nom: "renaissance-securite-mr.com",
     url: "https://renaissance-securite-mr.com",
     type: "client",
     description: "Site multipages pour une société de sécurité privée à Nouakchott (Mauritanie) : services, formation, vidéo de présentation et demande de devis.",
-    publie: false,
+    publie: true,
   },
 
   // Produits LINSAEM

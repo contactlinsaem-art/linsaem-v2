@@ -145,7 +145,7 @@ export default function AccueilPage() {
       {/* Réalisations */}
       {realisationsPubliees.length > 0 && (
         <Section id="realisations" tone="muted" eyebrow="Réalisations" title="Sites livrés et produits LINSAEM">
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {realisationsPubliees.map((r) => (
               <RealisationCard key={r.url} realisation={r} />
             ))}
