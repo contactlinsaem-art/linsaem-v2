@@ -1,6 +1,7 @@
 import { entreprise } from "@/content/entreprise";
 import { LegalPage } from "@/components/site/LegalPage";
 import { pageMetadata } from "@/lib/seo";
+import { limiteParIpConfiguree } from "@/lib/ratelimit";
 
 export const metadata = pageMetadata({
   title: "Politique de confidentialité",
@@ -9,11 +10,16 @@ export const metadata = pageMetadata({
   noindex: true,
 });
 
+// Upstash n'apparaît que si la limite par IP est activée (variables présentes au build).
+const limiteIp = limiteParIpConfiguree();
+
 const sousTraitants = [
   ["Vercel Inc.", "Hébergement du site, mesure d'audience sans cookie", "États-Unis"],
   ["Resend Inc.", "Envoi des emails du formulaire de contact", "États-Unis"],
   ["Cloudflare Inc.", "Vérification anti-robot du formulaire (Turnstile)", "États-Unis"],
-  ["Upstash Inc.", "Limitation du nombre d'envois par adresse IP", "[À REMPLIR : région de la base Upstash]"],
+  ...(limiteIp
+    ? [["Upstash Inc.", "Limitation du nombre d'envois par adresse IP", "[À REMPLIR : région de la base Upstash]"]]
+    : []),
   ["Stripe Payments Europe Ltd", "Paiement et facturation des abonnements", "Irlande (UE)"],
 ];
 
@@ -43,8 +49,8 @@ export default function ConfidentialitePage() {
         <h3>Protection contre les envois abusifs</h3>
         <ul>
           <li>
-            Données : adresse IP et signaux techniques du navigateur, analysés par Cloudflare Turnstile ; adresse IP
-            conservée temporairement pour limiter le nombre d&apos;envois.
+            Données : adresse IP et signaux techniques du navigateur, analysés par Cloudflare Turnstile
+            {limiteIp ? " ; adresse IP conservée temporairement pour limiter le nombre d'envois" : ""}.
           </li>
           <li>Finalité : empêcher l&apos;utilisation du formulaire par des robots.</li>
           <li>Base légale : intérêt légitime de LINSAEM à sécuriser son site (article 6.1.f).</li>
@@ -71,7 +77,7 @@ export default function ConfidentialitePage() {
           <li>Demandes de contact sans suite : 3 ans au plus après le dernier échange.</li>
           <li>Données clients : durée de la relation contractuelle, puis 3 ans à des fins de prospection.</li>
           <li>Factures et pièces comptables : 10 ans (article L.123-22 du Code de commerce).</li>
-          <li>Adresse IP utilisée pour la limitation des envois : 1 heure.</li>
+          {limiteIp && <li>Adresse IP utilisée pour la limitation des envois : 1 heure.</li>}
         </ul>
       </section>
 
