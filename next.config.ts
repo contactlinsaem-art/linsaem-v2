@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 
-// Lu au build : changer l'URL du portail Stripe demande un redéploiement.
-const portailClient = process.env.STRIPE_PORTAL_URL || "/contact";
-
 const modeles = ["vitrine", "boulangerie", "artisan", "architecte", "photographe", "restaurant", "coach"];
 
 const nextConfig: NextConfig = {
@@ -11,19 +8,20 @@ const nextConfig: NextConfig = {
   turbopack: { root: import.meta.dirname },
   async redirects() {
     return [
-      // Ancien espace client v2 → portail client Stripe (temporaire : l'URL du portail peut changer)
-      { source: "/login", destination: portailClient, permanent: false },
-      { source: "/dashboard", destination: portailClient, permanent: false },
-      { source: "/dashboard/:path*", destination: portailClient, permanent: false },
+      // Anciens modèles v2 : 301 explicite (permanent: true renverrait un 308)
+      { source: "/demos", destination: "/modeles", statusCode: 301 },
+      ...modeles.map((slug) => ({ source: `/demos/${slug}`, destination: `/modeles/${slug}`, statusCode: 301 as const })),
 
-      // Anciennes routes v2 supprimées
+      // Ancien espace client v2, jamais utilisé, et autres routes v2 supprimées
+      { source: "/login", destination: "/", permanent: true },
+      { source: "/register", destination: "/", permanent: true },
+      { source: "/dashboard", destination: "/", permanent: true },
+      { source: "/dashboard/:path*", destination: "/", permanent: true },
       { source: "/admin", destination: "/", permanent: true },
       { source: "/admin/:path*", destination: "/", permanent: true },
       { source: "/set-password", destination: "/", permanent: true },
       { source: "/forgot-password", destination: "/", permanent: true },
       { source: "/politique-de-confidentialite", destination: "/confidentialite", permanent: true },
-      { source: "/demos", destination: "/modeles", permanent: true },
-      ...modeles.map((slug) => ({ source: `/demos/${slug}`, destination: `/modeles/${slug}`, permanent: true })),
 
       // Anciennes pages de la v1
       ...["artisan", "boulangerie", "architecte", "photographe"].map((slug) => ({

@@ -77,10 +77,10 @@ export default function SitesVitrinesPage() {
           accessible depuis le lien{" "}
           {portailClientUrl ? (
             <a href={portailClientUrl} className="font-semibold text-accent underline underline-offset-4">
-              « Gérer mon abonnement »
+              « Factures et résiliation »
             </a>
           ) : (
-            "« Gérer mon abonnement »"
+            "« Factures et résiliation »"
           )}{" "}
           en bas de chaque page. Vous pouvez aussi y résilier.
         </p>

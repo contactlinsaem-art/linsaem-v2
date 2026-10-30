@@ -52,7 +52,7 @@ export function Footer() {
             {portailClientUrl && (
               <li>
                 <a href={portailClientUrl} className="hover:text-white" rel="noopener">
-                  Gérer mon abonnement
+                  Factures et résiliation
                 </a>
               </li>
             )}

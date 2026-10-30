@@ -52,10 +52,10 @@ champ piège → validation Zod → Cloudflare Turnstile → email à LINSAEM (R
 | `RESEND_FROM_EMAIL` | expéditeur (domaine vérifié dans Resend) |
 | `RESEND_TO_EMAIL` | destinataire des demandes |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile |
-| `STRIPE_PORTAL_URL` | lien « Gérer mon abonnement » et redirection de `/login`, `/dashboard` (lu au build) |
+| `STRIPE_PORTAL_URL` | lien « Factures et résiliation » (pied de page, CGV, page Sites vitrines) : résiliation en ligne obligatoire pour les particuliers (lu au build) |
 
 À activer dans le dashboard Vercel : **Web Analytics** (mesure d'audience sans cookie).
 
 ## Redirections
 
-Dans `next.config.ts` : `/login` et `/dashboard/*` → portail Stripe ; `/demos/*` → `/modeles/*` ; `/politique-de-confidentialite` → `/confidentialite` ; anciennes routes v2 (`/admin`, `/set-password`…) et pages `.html` de la v1.
+Dans `next.config.ts` (vérifiées par `tests/redirections.spec.ts`) : `/demos` et `/demos/<modèle>` → `/modeles…` (301) ; `/login`, `/register` et `/dashboard/*` → accueil ; `/politique-de-confidentialite` → `/confidentialite` ; anciennes routes v2 (`/admin`, `/set-password`…) et pages `.html` de la v1.

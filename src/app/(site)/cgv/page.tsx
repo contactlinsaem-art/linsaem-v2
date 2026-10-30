@@ -93,7 +93,7 @@ export default function CgvPage() {
           {portailClientUrl ? (
             <>
               {" "}
-              (<a href={portailClientUrl}>Gérer mon abonnement</a>)
+              (<a href={portailClientUrl}>Factures et résiliation</a>)
             </>
           ) : null}
           . En cas d&apos;échec de paiement, LINSAEM relance le Client ; à défaut de régularisation dans les 7 jours suivant
@@ -108,7 +108,15 @@ export default function CgvPage() {
           demande écrite ; le changement prend effet au mois suivant, au tarif de la nouvelle formule.
         </p>
         <p>
-          Le Client peut résilier à tout moment, depuis le portail client Stripe ou par email à{" "}
+          Le Client peut résilier à tout moment, en ligne, depuis le lien « Factures et résiliation » présent en bas de
+          chaque page du site
+          {portailClientUrl ? (
+            <>
+              {" "}
+              (<a href={portailClientUrl}>accéder au portail client</a>)
+            </>
+          ) : null}
+          , qui ouvre le portail client Stripe, ou par email à{" "}
           <a href={`mailto:${entreprise.email}`}>{entreprise.email}</a>, avec un préavis d&apos;un mois. Le site reste en
           ligne jusqu&apos;à la fin de la période payée.
         </p>
