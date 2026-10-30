@@ -16,12 +16,13 @@ function getResend(): Resend {
 type Envoi = { to: string; subject: string; email: ReactElement; replyTo?: string };
 
 export async function envoyerEmail({ to, subject, email, replyTo }: Envoi): Promise<void> {
-  const from = process.env.CONTACT_FROM_EMAIL;
-  if (!from) throw new Error("CONTACT_FROM_EMAIL manquante");
+  const from = process.env.RESEND_FROM_EMAIL;
+  if (!from) throw new Error("RESEND_FROM_EMAIL manquante");
 
   const html = await render(email);
   const { error } = await getResend().emails.send({
-    from: `LINSAEM <${from}>`,
+    // Accepte une adresse seule (« contact@… ») ou déjà formatée (« Nom <contact@…> »).
+    from: from.includes("<") ? from : `LINSAEM <${from}>`,
     to,
     subject,
     html,

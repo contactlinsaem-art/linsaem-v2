@@ -91,9 +91,9 @@ export async function envoyerDemande(_prev: ContactState, formData: FormData): P
   if (modeTest) {
     console.info("[CONTACT_DRY_RUN] demande reçue :", { type: demande.type, formule: demande.formule });
   } else {
-    const destinataire = process.env.CONTACT_TO_EMAIL;
+    const destinataire = process.env.RESEND_TO_EMAIL;
     try {
-      if (!destinataire) throw new Error("CONTACT_TO_EMAIL manquante");
+      if (!destinataire) throw new Error("RESEND_TO_EMAIL manquante");
       await envoyerEmail({
         to: destinataire,
         subject: `Nouvelle demande : ${libellesType[demande.type]}`,

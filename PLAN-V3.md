@@ -93,7 +93,7 @@
 
 ### 1.5 Variables d'environnement v3
 
-`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `STRIPE_PORTAL_URL`, plus celles de la limite par IP (voir question 8). Toutes les autres (Neon, JWT, Stripe API…) sont supprimées de Vercel.
+`RESEND_API_KEY`, `RESEND_TO_EMAIL`, `RESEND_FROM_EMAIL`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `STRIPE_PORTAL_URL`, plus celles de la limite par IP (voir question 8). Toutes les autres (Neon, JWT, Stripe API…) sont supprimées de Vercel.
 
 ---
 

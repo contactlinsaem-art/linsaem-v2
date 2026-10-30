@@ -49,8 +49,8 @@ champ piège → limite de 5 envois par heure et par IP (Upstash) → validation
 | Variable | Usage |
 |---|---|
 | `RESEND_API_KEY` | envoi des emails |
-| `CONTACT_FROM_EMAIL` | expéditeur (domaine vérifié dans Resend) |
-| `CONTACT_TO_EMAIL` | destinataire des demandes |
+| `RESEND_FROM_EMAIL` | expéditeur (domaine vérifié dans Resend) |
+| `RESEND_TO_EMAIL` | destinataire des demandes |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | limite par IP |
 | `STRIPE_PORTAL_URL` | lien « Gérer mon abonnement » et redirection de `/login`, `/dashboard` (lu au build) |
