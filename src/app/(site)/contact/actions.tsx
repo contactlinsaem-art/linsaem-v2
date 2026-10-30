@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { contactSchema } from "@/lib/contact-schema";
 import { HONEYPOT, libellesType, type ContactField, type ContactState } from "@/lib/contact-fields";
 import { verifierTurnstile } from "@/lib/turnstile";
-import { limiteAtteinte } from "@/lib/ratelimit";
 import { envoyerEmail } from "@/lib/email";
 import { entreprise } from "@/content/entreprise";
 import { LeadAlert } from "@/emails/LeadAlert";
@@ -14,7 +13,7 @@ import { AccuseReception } from "@/emails/AccuseReception";
 const CHAMPS: ContactField[] = ["type", "nom", "email", "telephone", "formule", "message"];
 
 /**
- * Mode test (Playwright en local ou en CI) : ni Turnstile, ni limite, ni envoi réel.
+ * Mode test (Playwright en local ou en CI) : ni Turnstile, ni envoi réel.
  * Impossible à activer sur Vercel (VERCEL=1 y est toujours défini), même si la variable est ajoutée par erreur.
  */
 function modeTestActif(): boolean {
@@ -44,21 +43,7 @@ export async function envoyerDemande(_prev: ContactState, formData: FormData): P
   const ip = await ipVisiteur();
   const modeTest = modeTestActif();
 
-  try {
-    // 2. Limite par IP
-    if (!modeTest && (await limiteAtteinte(ip ?? "inconnue"))) {
-      return {
-        status: "error",
-        message: `Trop de demandes envoyées depuis votre connexion. Réessayez dans une heure ou écrivez à ${entreprise.email}.`,
-        values: valeurs,
-      };
-    }
-  } catch (e) {
-    console.error("Limite d'envoi indisponible", e);
-    return erreurServeur(valeurs);
-  }
-
-  // 3. Validation
+  // 2. Validation
   const parsed = contactSchema.safeParse(valeurs);
   if (!parsed.success) {
     const fieldErrors: Partial<Record<ContactField, string>> = {};
@@ -69,7 +54,7 @@ export async function envoyerDemande(_prev: ContactState, formData: FormData): P
     return { status: "error", message: "Certains champs sont à corriger.", fieldErrors, values: valeurs };
   }
 
-  // 4. Anti-robot
+  // 3. Anti-robot
   if (!modeTest) {
     try {
       const humain = await verifierTurnstile(String(formData.get("cf-turnstile-response") ?? ""), ip);
@@ -86,7 +71,7 @@ export async function envoyerDemande(_prev: ContactState, formData: FormData): P
     }
   }
 
-  // 5. Envoi : l'alerte interne d'abord (c'est elle qui compte), l'accusé de réception ensuite.
+  // 4. Envoi : l'alerte interne d'abord (c'est elle qui compte), l'accusé de réception ensuite.
   const demande = parsed.data;
   if (modeTest) {
     console.info("[CONTACT_DRY_RUN] demande reçue :", { type: demande.type, formule: demande.formule });

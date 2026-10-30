@@ -15,7 +15,7 @@ export default defineConfig({
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    // Build de production servi localement en mode « dry run » : ni Turnstile, ni limite par IP, ni email réel.
+    // Build de production servi localement en mode « dry run » : ni Turnstile, ni email réel.
     command: `npx next build && npx next start --port ${port}`,
     url: `http://localhost:${port}/contact`,
     reuseExistingServer: !process.env.CI,

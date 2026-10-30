@@ -40,11 +40,9 @@ Un prix modifié dans `offres.ts` se répercute partout : cartes, CGV, JSON-LD, 
 ## Formulaire de contact
 
 `src/app/(site)/contact/actions.tsx` (Server Action), dans cet ordre :
-champ piège → limite de 5 envois par heure et par IP (Upstash, **optionnelle**) → validation Zod → Cloudflare Turnstile → email à LINSAEM (Resend) → accusé de réception au visiteur, au **texte fixe** (aucune saisie recopiée).
+champ piège → validation Zod → Cloudflare Turnstile → email à LINSAEM (Resend) → accusé de réception au visiteur, au **texte fixe** (aucune saisie recopiée).
 
-La limite par IP est inactive tant que `UPSTASH_REDIS_REST_URL` et `UPSTASH_REDIS_REST_TOKEN` ne sont pas définies (un avertissement est alors écrit dans les logs serveur). Pour l'activer : ajouter les deux variables sur Vercel et redéployer. La politique de confidentialité mentionne alors automatiquement Upstash ; pensez à y renseigner la région de la base (`[À REMPLIR]` dans `src/app/(site)/confidentialite/page.tsx`).
-
-`CONTACT_DRY_RUN=1` désactive Turnstile, la limite et l'envoi (tests). Ce mode ne s'active jamais sur Vercel.
+`CONTACT_DRY_RUN=1` désactive Turnstile et l'envoi (tests). Ce mode ne s'active jamais sur Vercel.
 
 ## Variables d'environnement (Vercel → Settings → Environment Variables)
 
@@ -54,7 +52,6 @@ La limite par IP est inactive tant que `UPSTASH_REDIS_REST_URL` et `UPSTASH_REDI
 | `RESEND_FROM_EMAIL` | expéditeur (domaine vérifié dans Resend) |
 | `RESEND_TO_EMAIL` | destinataire des demandes |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | *(optionnelles)* limite par IP ; sans elles, pas de limite |
 | `STRIPE_PORTAL_URL` | lien « Gérer mon abonnement » et redirection de `/login`, `/dashboard` (lu au build) |
 
 À activer dans le dashboard Vercel : **Web Analytics** (mesure d'audience sans cookie).
