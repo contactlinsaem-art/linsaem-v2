@@ -36,7 +36,8 @@ export default function MentionsLegalesPage() {
       <section>
         <h2>Hébergement</h2>
         <p>
-          Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse} — <a href={`mailto:${hebergeur.email}`}>{hebergeur.email}</a> —{" "}
+          Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse} — <a href={`tel:${hebergeur.telephone.lien}`}>{hebergeur.telephone.affichage}</a> —{" "}
+          <a href={`mailto:${hebergeur.email}`}>{hebergeur.email}</a> —{" "}
           <a href={hebergeur.site} target="_blank" rel="noopener noreferrer">
             vercel.com
           </a>

@@ -26,6 +26,7 @@ export const entreprise = {
     nom: "Vercel, Inc.",
     adresse: "440 North Barranca Avenue, Suite 4133, Covina, California 91723, États-Unis",
     email: "support@vercel.com",
+    telephone: { affichage: "+1 951-383-6898", lien: "+19513836898" },
     site: "https://vercel.com",
   },
 
