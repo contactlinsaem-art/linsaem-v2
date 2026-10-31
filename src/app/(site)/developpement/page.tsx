@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { processDeveloppement, technologies, typesDeveloppement } from "@/content/offres";
-import { produits } from "@/content/realisations";
+import { applications } from "@/content/realisations";
 import { faqDeveloppement } from "@/content/faq";
+import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { ProcessSteps } from "@/components/site/ProcessSteps";
@@ -10,7 +11,8 @@ import { RealisationCard } from "@/components/site/RealisationCard";
 import { FaqList } from "@/components/site/FaqList";
 import { CtaBand } from "@/components/site/CtaBand";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { faqJsonLd, pageMetadata } from "@/lib/seo";
+import { FilAriane } from "@/components/site/FilAriane";
+import { faqJsonLd, pageMetadata, serviceDeveloppementJsonLd } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Développement web sur mesure : applications, SaaS, intégrations",
@@ -23,9 +25,16 @@ export default function DeveloppementPage() {
   return (
     <>
       <JsonLd data={faqJsonLd(faqDeveloppement)} />
+      <JsonLd data={serviceDeveloppementJsonLd()} />
 
+      <div className="bg-slate-950">
+        <Container className="pt-8">
+          <FilAriane tone="dark" etapes={[{ nom: "Développement", path: "/developpement" }]} />
+        </Container>
+      </div>
       <Section
         as="h1"
+        className="pt-8! sm:pt-12!"
         tone="dark"
         title="Développement web sur mesure"
         intro="Applications web, SaaS, outils temps réel et intégrations : LINSAEM conçoit et développe des projets adaptés à votre besoin, du cadrage à la maintenance. Chaque projet fait l'objet d'un devis détaillé."
@@ -61,10 +70,10 @@ export default function DeveloppementPage() {
         <ProcessSteps etapes={processDeveloppement} />
       </Section>
 
-      <Section id="exemples" title="Exemples de projets" intro="Produits conçus, développés et exploités par LINSAEM.">
+      <Section id="exemples" title="Exemples de projets" intro="Applications conçues et développées de bout en bout.">
         <div className="grid gap-6 md:grid-cols-2">
-          {produits.map((p) => (
-            <RealisationCard key={p.url} realisation={p} />
+          {applications.map((p) => (
+            <RealisationCard key={p.slug} realisation={p} />
           ))}
         </div>
         <p className="mt-10">

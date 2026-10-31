@@ -43,6 +43,47 @@
   }
 }
 
+/* Corps des articles du blog (contenu MDX) */
+@layer components {
+  .prose-article {
+    @apply text-lg leading-relaxed text-slate-700;
+  }
+  .prose-article > * + * {
+    @apply mt-5;
+  }
+  .prose-article h2 {
+    @apply mt-14 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl;
+  }
+  .prose-article h3 {
+    @apply mt-10 text-xl font-semibold text-slate-900;
+  }
+  .prose-article a {
+    @apply font-medium text-accent underline underline-offset-4;
+  }
+  .prose-article strong {
+    @apply font-semibold text-slate-900;
+  }
+  .prose-article ul {
+    @apply list-disc space-y-2 pl-6 marker:text-accent;
+  }
+  .prose-article code {
+    @apply rounded bg-slate-100 px-1.5 py-0.5 text-base;
+  }
+  .prose-article table {
+    @apply mt-8 block w-full overflow-x-auto text-left text-base;
+  }
+  .prose-article th,
+  .prose-article td {
+    @apply border-b border-slate-200 py-3 pr-6 align-top;
+  }
+  .prose-article thead th {
+    @apply border-slate-300 font-semibold text-slate-900;
+  }
+  .prose-article tbody th {
+    @apply font-medium text-slate-900;
+  }
+}
+
 @utility bg-brand-gradient {
   background-image: linear-gradient(
     135deg,
@@ -123,6 +164,40 @@
 @utility grow-x {
   transform-origin: left;
   animation: grow-x 1.2s ease-out 0.4s both;
+}
+
+/* Entrée du hero des modèles : décaler avec [animation-delay:…] */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility fade-up {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+/* Zoom lent sur une image de hero */
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@utility slow-zoom {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: slow-zoom 14s ease-out both;
+  }
 }
 
 /* Bandeau défilant des modèles */

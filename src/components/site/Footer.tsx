@@ -3,6 +3,8 @@ import { entreprise, portailClientUrl } from "@/content/entreprise";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "./Logo";
 import { navigation } from "./navigation";
+import { metiersVisibles } from "@/content/metiers";
+import { articlesVisibles } from "@/content/blog";
 
 const legal = [
   { href: "/mentions-legales", label: "Mentions légales" },
@@ -13,11 +15,11 @@ const legal = [
 export function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-300">
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
+      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <Logo tone="light" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
-            Sites vitrines par abonnement et développement web sur mesure.
+            Agence de création web : sites internet professionnels par abonnement et applications web sur mesure.
           </p>
           <ul className="mt-6 space-y-2 text-sm">
             <li>
@@ -36,7 +38,7 @@ export function Footer() {
         <nav aria-label="Plan du site">
           <h2 className="text-sm font-semibold text-white">Le site</h2>
           <ul className="mt-4 space-y-2 text-sm">
-            {[...navigation, { href: "/contact", label: "Contact" }].map((item) => (
+            {[...navigation, ...(articlesVisibles.length > 0 ? [{ href: "/blog", label: "Blog" }] : []), { href: "/contact", label: "Contact" }].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="hover:text-white">
                   {item.label}
@@ -45,6 +47,21 @@ export function Footer() {
             ))}
           </ul>
         </nav>
+
+        {metiersVisibles.length > 0 && (
+          <nav aria-label="Création de site par métier">
+            <h2 className="text-sm font-semibold text-white">Par métier</h2>
+            <ul className="mt-4 space-y-2 text-sm">
+              {metiersVisibles.map((m) => (
+                <li key={m.slug}>
+                  <Link href={`/creation-site-internet/${m.slug}`} className="hover:text-white">
+                    Site pour {m.cible}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
 
         <div>
           <h2 className="text-sm font-semibold text-white">Clients</h2>

@@ -20,8 +20,11 @@ export default function ContactPage() {
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_20rem]">
         <div className="rounded-3xl border border-slate-200 p-6 sm:p-10">
-          {/* useSearchParams (préremplissage via ?type=) : la page reste statique grâce à Suspense. */}
-          <Suspense>
+          {/*
+            useSearchParams (préremplissage via ?type=) : la page reste statique grâce à Suspense.
+            La réserve de hauteur (hauteur mesurée du formulaire) évite que la colonne de droite saute à l'affichage.
+          */}
+          <Suspense fallback={<div aria-hidden="true" className="min-h-[68rem] sm:min-h-[57rem] lg:min-h-[52rem]" />}>
             <ContactForm />
           </Suspense>
         </div>

@@ -19,6 +19,27 @@ const pages = [
   "/modeles/photographe",
   "/modeles/restaurant",
   "/modeles/coach",
+  // Collection actuelle des modèles
+  "/modeles/maison-sauge",
+  "/modeles/fournil-saint-roch",
+  "/modeles/ferrand-plomberie",
+  "/modeles/studio-ligne",
+  "/modeles/atelier-grain",
+  "/modeles/maison-olivette",
+  "/modeles/cap-equilibre",
+  // Réalisations, pages métiers et blog (les brouillons sont générés hors production)
+  "/realisations/fatuiali",
+  "/realisations/cvuzz",
+  "/creation-site-internet/artisan",
+  "/creation-site-internet/estheticienne",
+  "/creation-site-internet/restaurant",
+  "/creation-site-internet/entreprise-de-menage",
+  "/creation-site-internet/coach",
+  "/creation-site-internet/photographe",
+  "/blog",
+  "/blog/prix-site-internet-artisan",
+  "/blog/site-internet-ou-page-facebook",
+  "/blog/mentions-obligatoires-site-entreprise",
 ];
 
 test.describe("Accessibilité (WCAG 2.x A et AA)", () => {

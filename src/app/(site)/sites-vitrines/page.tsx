@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { formules, formatPrix, inclusVitrine, prixMinimum, processVitrine } from "@/content/offres";
 import { faqVitrines } from "@/content/faq";
 import { portailClientUrl } from "@/content/entreprise";
+import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { FormuleCard } from "@/components/site/FormuleCard";
@@ -9,7 +10,8 @@ import { ProcessSteps } from "@/components/site/ProcessSteps";
 import { FaqList } from "@/components/site/FaqList";
 import { CtaBand } from "@/components/site/CtaBand";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { faqJsonLd, pageMetadata } from "@/lib/seo";
+import { FilAriane } from "@/components/site/FilAriane";
+import { faqJsonLd, pageMetadata, serviceVitrineJsonLd } from "@/lib/seo";
 
 const prixMax = Math.max(...formules.map((f) => f.prixMensuelTTC));
 
@@ -23,9 +25,14 @@ export default function SitesVitrinesPage() {
   return (
     <>
       <JsonLd data={faqJsonLd(faqVitrines)} />
+      <JsonLd data={serviceVitrineJsonLd()} />
 
+      <Container className="pt-8">
+        <FilAriane etapes={[{ nom: "Sites vitrines", path: "/sites-vitrines" }]} />
+      </Container>
       <Section
         as="h1"
+        className="pt-8! sm:pt-12!"
         title="Sites vitrines par abonnement"
         intro="Un site professionnel conçu pour votre activité, hébergé, sécurisé et maintenu, pour un abonnement mensuel. Sans engagement de durée."
       >

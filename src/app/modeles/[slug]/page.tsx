@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import { notFound } from "next/navigation";
-import { getModele, modeles } from "@/content/modeles";
-import { pageMetadata } from "@/lib/seo";
+import { modelesClassiques } from "@/content/modeles";
+import { PageModele, modeleMetadata } from "@/components/modeles/PageModele";
 import { Vitrine } from "@/components/modeles/Vitrine";
 import { Boulangerie } from "@/components/modeles/Boulangerie";
 import { Artisan } from "@/components/modeles/Artisan";
@@ -11,6 +10,10 @@ import { Photographe } from "@/components/modeles/Photographe";
 import { Restaurant } from "@/components/modeles/Restaurant";
 import { Coach } from "@/components/modeles/Coach";
 
+/**
+ * Première collection. Les modèles de la collection actuelle ont chacun leur route (src/app/modeles/<slug>),
+ * pour que chaque page ne précharge que ses propres typographies (next/font les rattache à la route).
+ */
 const composants: Record<string, ComponentType> = {
   vitrine: Vitrine,
   boulangerie: Boulangerie,
@@ -24,23 +27,21 @@ const composants: Record<string, ComponentType> = {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return modeles.map((m) => ({ slug: m.slug }));
+  return modelesClassiques.map((m) => ({ slug: m.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/modeles/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/modeles/[slug]">) {
   const { slug } = await params;
-  const modele = getModele(slug);
-  if (!modele) return {};
-  return pageMetadata({
-    title: `Modèle de site ${modele.secteur.toLowerCase()} : ${modele.nom}`,
-    description: `${modele.description} Modèle de design LINSAEM, adaptable à votre activité.`,
-    path: `/modeles/${modele.slug}`,
-  });
+  return modeleMetadata(slug);
 }
 
 export default async function ModelePage({ params }: PageProps<"/modeles/[slug]">) {
   const { slug } = await params;
   const Modele = composants[slug];
   if (!Modele) notFound();
-  return <Modele />;
+  return (
+    <PageModele slug={slug}>
+      <Modele />
+    </PageModele>
+  );
 }

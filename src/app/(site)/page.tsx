@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { formules, formatPrix, prixMinimum, processVitrine, processDeveloppement, typesDeveloppement } from "@/content/offres";
-import { modeles } from "@/content/modeles";
+import { modeles, tousLesModeles } from "@/content/modeles";
+import { metiersVisibles } from "@/content/metiers";
 import { realisationsPubliees } from "@/content/realisations";
 import { faqAccueil } from "@/content/faq";
 import { entreprise } from "@/content/entreprise";
@@ -17,9 +18,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { faqJsonLd, pageMetadata, professionalServiceJsonLd } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "LINSAEM — Sites vitrines par abonnement et développement web sur mesure",
+  title: "Création de site internet professionnel — Agence web LINSAEM",
   absoluteTitle: true,
-  description: `Site vitrine professionnel hébergé et maintenu dès ${formatPrix(prixMinimum)} TTC par mois, ou application web conçue pour votre besoin, sur devis : SaaS, temps réel, intégrations.`,
+  description: `Agence de création web : site internet professionnel conçu pour votre activité, hébergé et maintenu dès ${formatPrix(prixMinimum)} TTC par mois, ou application web sur mesure, sur devis.`,
   path: "/",
 });
 
@@ -34,12 +35,16 @@ export default function AccueilPage() {
         <div aria-hidden="true" className="bg-brand-gradient absolute -top-40 -right-40 size-[36rem] rounded-full opacity-30 blur-3xl" />
         <div aria-hidden="true" className="bg-brand-gradient absolute -bottom-56 -left-40 size-[30rem] rounded-full opacity-20 blur-3xl" />
         <Container className="relative py-20 sm:py-28 lg:py-32">
-          <h1 id="hero-titre" className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            Sites vitrines par abonnement et <span className="text-brand-gradient">développement web sur mesure</span>
+          <h1 id="hero-titre" className="max-w-4xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            <span className="mb-5 block text-sm font-semibold tracking-[0.2em] text-violet-200 uppercase sm:text-base">
+              Agence de création web
+            </span>
+            Création de site internet professionnel{" "}
+            <span className="text-brand-gradient">et d&apos;applications sur mesure</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-slate-300 sm:text-xl">
-            Un site professionnel hébergé et maintenu dès {formatPrix(prixMinimum)} TTC par mois, ou une application
-            conçue pour votre besoin, sur devis.
+            Un site conçu pour votre activité, hébergé et maintenu dès {formatPrix(prixMinimum)} TTC par mois, ou une
+            application web développée pour votre besoin, sur devis.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="/sites-vitrines" variant="light" size="lg">
@@ -123,31 +128,12 @@ export default function AccueilPage() {
         </p>
       </Section>
 
-      {/* Modèles */}
-      <Section
-        id="modeles"
-        eyebrow="Modèles de design"
-        title="Des exemples de styles"
-        intro="Chaque site est ensuite adapté à votre activité. Les entreprises présentées sont fictives."
-      >
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {modeles.slice(0, 6).map((m) => (
-            <ModeleCard key={m.slug} modele={m} />
-          ))}
-        </div>
-        <p className="mt-10 text-center">
-          <ButtonLink href="/modeles" variant="secondary">
-            Voir les {modeles.length} modèles
-          </ButtonLink>
-        </p>
-      </Section>
-
       {/* Réalisations */}
       {realisationsPubliees.length > 0 && (
-        <Section id="realisations" tone="muted" eyebrow="Réalisations" title="Sites livrés et produits LINSAEM">
+        <Section id="realisations" tone="white" eyebrow="Réalisations" title="Sites livrés et applications développées">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {realisationsPubliees.map((r) => (
-              <RealisationCard key={r.url} realisation={r} />
+              <RealisationCard key={r.slug} realisation={r} />
             ))}
           </div>
           <p className="mt-10 text-center">
@@ -158,8 +144,49 @@ export default function AccueilPage() {
         </Section>
       )}
 
+      {/* Par métier */}
+      {metiersVisibles.length > 0 && (
+        <Section id="metiers" tone="muted" eyebrow="Par métier" title="Un site pensé pour votre activité">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {metiersVisibles.map((m) => (
+              <li key={m.slug}>
+                <Link
+                  href={`/creation-site-internet/${m.slug}`}
+                  className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 transition-colors hover:border-accent"
+                >
+                  <span>
+                    <span className="block text-sm text-slate-600">Création de site internet pour</span>
+                    <span className="block text-lg font-semibold first-letter:uppercase">{m.cible}</span>
+                  </span>
+                  <ArrowRight aria-hidden="true" className="shrink-0 text-accent transition-transform group-hover:translate-x-1" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      {/* Modèles */}
+      <Section
+        id="modeles"
+        eyebrow="Modèles de design"
+        title="Un style pour chaque métier"
+        intro="Palette, typographies, mise en page : chaque modèle a sa propre identité. Votre site est ensuite adapté à votre activité. Les entreprises présentées sont fictives."
+      >
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {modeles.slice(0, 6).map((m) => (
+            <ModeleCard key={m.slug} modele={m} />
+          ))}
+        </div>
+        <p className="mt-10 text-center">
+          <ButtonLink href="/modeles" variant="secondary">
+            Voir les {tousLesModeles.length} modèles
+          </ButtonLink>
+        </p>
+      </Section>
+
       {/* Comment ça se passe */}
-      <Section id="process" eyebrow="Comment ça se passe" title="Deux parcours simples">
+      <Section id="process" tone="muted" eyebrow="Comment ça se passe" title="Deux parcours simples">
         <div className="grid gap-10 lg:grid-cols-2">
           {[
             { titre: "Site vitrine", etapes: processVitrine },
@@ -189,7 +216,7 @@ export default function AccueilPage() {
       </Section>
 
       {/* FAQ */}
-      <Section id="faq" tone="muted" eyebrow="FAQ" title="Questions fréquentes">
+      <Section id="faq" eyebrow="FAQ" title="Questions fréquentes">
         <div className="max-w-3xl">
           <FaqList questions={faqAccueil} />
         </div>

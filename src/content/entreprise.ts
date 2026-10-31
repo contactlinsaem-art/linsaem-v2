@@ -8,6 +8,8 @@ export const entreprise = {
   email: "contact@linsaem.fr",
   telephone: { affichage: "+33 6 25 73 43 35", lien: "+33625734335" },
   zone: "France",
+  /** Ville du siège, reprise dans les données structurées (sans la rue). */
+  ville: { nom: "Antony", codePostal: "92160" },
 
   legal: {
     formeSociale: "SASU",

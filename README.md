@@ -19,7 +19,7 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript |
 | `npm run build` | build de production |
-| `npm run test:e2e` | Playwright : formulaire de contact + audit d'accessibilité axe (WCAG AA) sur toutes les pages |
+| `npm run test:e2e` | Playwright : formulaire de contact, redirections, SEO (sitemap, données structurées) et audit d'accessibilité axe (WCAG AA) |
 
 Première utilisation de Playwright : `npx playwright install chromium`.
 
@@ -29,13 +29,32 @@ Tout le texte métier vient de `src/content/` :
 
 | Fichier | Contenu |
 |---|---|
-| `entreprise.ts` | coordonnées, **mentions légales `[À REMPLIR]`**, délais affichés |
+| `entreprise.ts` | coordonnées, mentions légales, délais affichés |
 | `offres.ts` | formules, prix TTC, frais de mise en service, process, offre développement |
-| `realisations.ts` | sites clients (`publie: false` tant que le client n'a pas donné son accord) et produits LINSAEM |
-| `modeles.ts` | les 7 modèles de design (le rendu de chacun est dans `src/components/modeles/`) |
+| `realisations.ts` | sites clients et applications développées, avec le contenu de leur page `/realisations/[slug]` (`publie: false` tant que le client n'a pas donné son accord) ; capture d'écran dans `src/assets/realisations/` |
+| `modeles.ts` | collection actuelle (7 modèles, une route chacun dans `src/app/modeles/<slug>/`) et première collection (route `/modeles/[slug]`) ; le rendu de chacun est dans `src/components/modeles/` |
+| `metiers.ts` | pages `/creation-site-internet/[metier]` : besoins, fonctionnalités, modèle et réalisation liés, FAQ |
+| `blog/` | articles en MDX (`*.mdx`) et leur registre (`index.ts` : titre, description, date, `publie`) |
 | `faq.ts` | FAQ de l'accueil, des sites vitrines et du développement (alimente aussi le JSON-LD) |
 
 Un prix modifié dans `offres.ts` se répercute partout : cartes, CGV, JSON-LD, formulaire. Pensez à modifier le Price correspondant dans Stripe.
+
+### Brouillons et publication
+
+Les pages métiers et les articles ont un champ `publie`. Tant qu'il vaut `false`, la page est générée **en local et sur les previews Vercel** (bandeau « Brouillon », `noindex`), mais **jamais en production**, et elle n'apparaît pas dans le sitemap. Pour publier : passer `publie: true`, commiter, déployer.
+
+Les articles renvoient vers des pages métiers : publiez-les ensemble.
+
+### Vignettes des modèles
+
+Les vignettes de la collection actuelle sont des captures des pages. Après une modification visuelle d'un modèle :
+
+```bash
+npm run build && npx next start --port 3100   # dans un terminal
+node scripts/apercus-modeles.mjs              # dans un autre
+```
+
+Chaque modèle de la collection actuelle a sa propre route : `next/font` rattache les polices à la route, une route commune ferait précharger les polices de tous les modèles sur chaque page.
 
 ## Formulaire de contact
 

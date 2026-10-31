@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const modeles = ["vitrine", "boulangerie", "artisan", "architecte", "photographe", "restaurant", "coach"];
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // 50 : images de fond assombries (heros plein écran des modèles), où la compression ne se voit pas.
+  images: { qualities: [50, 75] },
   // Un package-lock.json existe plus haut dans l'arborescence locale : on fixe explicitement la racine du projet.
   turbopack: { root: import.meta.dirname },
   async redirects() {
@@ -48,4 +51,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Articles du blog en MDX (src/content/blog/*.mdx), importés par les pages : aucune route n'est créée par un fichier .mdx.
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
