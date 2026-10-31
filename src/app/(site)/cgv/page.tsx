@@ -19,8 +19,14 @@ export default function CgvPage() {
         <h2>1. Objet et champ d&apos;application</h2>
         <p>
           Les présentes conditions générales de vente (CGV) régissent les prestations fournies par {legal.raisonSociale},{" "}
-          {legal.formeSociale} immatriculée au {legal.rcs}, dont le siège est situé {legal.siege} (ci-après « LINSAEM »),
-          à toute personne physique ou morale (ci-après « le Client »). Elles couvrent deux offres :
+          {legal.formeSociale} au capital de {legal.capital}, immatriculée au {legal.rcs}, dont le siège est situé{" "}
+          {legal.siege} (ci-après « LINSAEM »), à des clients professionnels (ci-après « le Client »).
+        </p>
+        <p>
+          <strong>Les offres de LINSAEM sont réservées aux professionnels</strong> : entreprises, artisans, commerçants,
+          indépendants, professions libérales et associations, agissant pour les besoins de leur activité. En passant
+          commande, le Client déclare agir en qualité de professionnel. Les présentes CGV constituent le socle de la
+          négociation commerciale au sens de l&apos;article L.441-1 du Code de commerce. Elles couvrent deux offres :
         </p>
         <ul>
           <li>
@@ -98,6 +104,11 @@ export default function CgvPage() {
           ) : null}
           . En cas d&apos;échec de paiement, LINSAEM relance le Client ; à défaut de régularisation dans les 7 jours suivant
           la relance, LINSAEM peut suspendre l&apos;accès au site jusqu&apos;au paiement.
+        </p>
+        <p>
+          Conformément à l&apos;article L.441-10 du Code de commerce, tout retard de paiement entraîne de plein droit des
+          pénalités de retard égales à trois fois le taux d&apos;intérêt légal, ainsi qu&apos;une indemnité forfaitaire
+          pour frais de recouvrement de 40 €. Aucun escompte n&apos;est accordé en cas de paiement anticipé.
         </p>
       </section>
 
@@ -202,35 +213,7 @@ export default function CgvPage() {
       <h2 className="mt-14! border-b border-slate-200 pb-2 text-2xl!">Dispositions communes</h2>
 
       <section>
-        <h2>14. Droit de rétractation</h2>
-        <p>
-          Le Client consommateur (ou professionnel employant au plus cinq salariés, lorsque la prestation n&apos;entre pas
-          dans le champ de son activité principale) dispose d&apos;un délai de 14 jours à compter de la conclusion du
-          contrat pour se rétracter, sans avoir à motiver sa décision (articles L.221-18 et suivants du Code de la
-          consommation). Il exerce ce droit par email à <a href={`mailto:${entreprise.email}`}>{entreprise.email}</a>, par
-          toute déclaration dénuée d&apos;ambiguïté ou à l&apos;aide du modèle ci-dessous.
-        </p>
-        <p>
-          Si le Client demande expressément que la prestation commence avant la fin du délai de rétractation et se rétracte
-          ensuite, il verse un montant proportionnel à ce qui a été fourni jusqu&apos;à la communication de sa décision
-          (article L.221-25). Le droit de rétractation ne peut plus être exercé lorsque la prestation a été pleinement
-          exécutée avant la fin du délai, avec l&apos;accord préalable exprès du Client et sa reconnaissance de la perte de
-          ce droit (article L.221-28).
-        </p>
-        <h3>Modèle de formulaire de rétractation</h3>
-        <p className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm">
-          À l&apos;attention de {legal.raisonSociale}, {legal.siege}, {entreprise.email} :
-          <br />
-          Je vous notifie par la présente ma rétractation du contrat portant sur la prestation de services ci-dessous :
-          <br />
-          Commandée le : … — Nom du Client : … — Adresse du Client : …
-          <br />
-          Date : … — Signature (en cas d&apos;envoi papier) : …
-        </p>
-      </section>
-
-      <section>
-        <h2>15. Responsabilité</h2>
+        <h2>14. Responsabilité</h2>
         <p>
           LINSAEM est tenue d&apos;une obligation de moyens. Elle ne saurait être tenue responsable des contenus fournis par
           le Client, ni des interruptions dues à l&apos;hébergeur, aux opérateurs de réseau ou à un cas de force majeure. Le
@@ -239,7 +222,7 @@ export default function CgvPage() {
       </section>
 
       <section>
-        <h2>16. Données personnelles</h2>
+        <h2>15. Données personnelles</h2>
         <p>
           Les données du Client sont traitées conformément à la{" "}
           <Link href="/confidentialite">politique de confidentialité</Link>.
@@ -247,19 +230,10 @@ export default function CgvPage() {
       </section>
 
       <section>
-        <h2>17. Médiation de la consommation</h2>
+        <h2>16. Droit applicable et litiges</h2>
         <p>
-          En cas de litige, le Client consommateur adresse d&apos;abord une réclamation écrite à LINSAEM. À défaut de
-          solution amiable, il peut recourir gratuitement au médiateur de la consommation suivant (articles L.611-1 et
-          suivants du Code de la consommation) : {legal.mediateur.nom}, {legal.mediateur.adresse}, {legal.mediateur.site}.
-        </p>
-      </section>
-
-      <section>
-        <h2>18. Droit applicable</h2>
-        <p>
-          Les présentes CGV sont soumises au droit français. À défaut d&apos;accord amiable, les tribunaux français sont
-          compétents, sous réserve des règles de compétence protectrices des consommateurs.
+          Les présentes CGV sont soumises au droit français. En cas de litige, les parties recherchent d&apos;abord une
+          solution amiable. À défaut, le litige est porté devant le tribunal de commerce de Nanterre.
         </p>
       </section>
     </LegalPage>

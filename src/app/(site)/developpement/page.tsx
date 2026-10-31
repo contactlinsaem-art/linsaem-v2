@@ -38,6 +38,7 @@ export default function DeveloppementPage() {
             Voir des exemples
           </ButtonLink>
         </div>
+        <p className="mt-6 text-sm text-slate-400">Offres réservées aux professionnels.</p>
       </Section>
 
       <Section id="types" title="Ce qui peut être développé">

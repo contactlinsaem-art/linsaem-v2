@@ -37,6 +37,7 @@ export default function SitesVitrinesPage() {
             Voir les modèles
           </ButtonLink>
         </div>
+        <p className="mt-6 text-sm text-slate-600">Offres réservées aux professionnels.</p>
       </Section>
 
       <Section

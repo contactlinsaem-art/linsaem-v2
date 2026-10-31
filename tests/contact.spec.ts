@@ -7,6 +7,7 @@ test.describe("Formulaire de contact", () => {
     await expect(page.getByRole("radio", { name: "Développement sur mesure" })).toBeChecked();
     // La formule n'est proposée que pour un site vitrine.
     await expect(page.getByLabel("Formule envisagée")).toHaveCount(0);
+    await expect(page.getByText("Offres réservées aux professionnels")).toBeVisible();
 
     await page.getByLabel("Nom").fill("Personne Test");
     await page.getByLabel("Email").fill("test@example.com");

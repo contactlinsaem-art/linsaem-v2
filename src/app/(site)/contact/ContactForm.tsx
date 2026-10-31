@@ -152,6 +152,10 @@ export function ContactForm() {
       {siteKey && <Turnstile siteKey={siteKey} resetKey={state} />}
 
       <p className="text-sm leading-relaxed text-slate-600">
+        Offres réservées aux professionnels (entreprises, artisans, indépendants, associations).
+      </p>
+
+      <p className="text-sm leading-relaxed text-slate-600">
         Vos données servent uniquement à répondre à votre demande. Elles sont conservées au plus tard 3 ans après le
         dernier échange. Détails et droits :{" "}
         <Link href="/confidentialite" className="font-medium text-accent underline underline-offset-4">

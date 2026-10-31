@@ -1,6 +1,6 @@
 /**
  * Identité et coordonnées de LINSAEM : source unique pour le site, les emails et le JSON-LD.
- * Les valeurs « [À REMPLIR] » apparaissent telles quelles sur /mentions-legales et /cgv.
+ * Toute valeur « [À REMPLIR] » apparaîtrait telle quelle sur /mentions-legales et /cgv.
  */
 export const entreprise = {
   nom: "LINSAEM",
@@ -12,17 +12,12 @@ export const entreprise = {
   legal: {
     formeSociale: "SASU",
     raisonSociale: "LINSAEM",
-    capital: "[À REMPLIR] €",
+    capital: "1 000 €",
     rcs: "RCS Nanterre 928 206 671",
     siren: "928 206 671",
     siege: "24 avenue Paul Valéry, 92160 Antony",
     tva: "FR91928206671",
     directeurPublication: "Issam Ben Jazia, Président",
-    mediateur: {
-      nom: "[À REMPLIR]",
-      adresse: "[À REMPLIR]",
-      site: "[À REMPLIR]",
-    },
   },
 
   hebergeur: {
