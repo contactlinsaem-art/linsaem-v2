@@ -1,124 +1,80 @@
-# LINSAEM v2
+# linsaem.fr — v3
 
-Site web Next.js 15 avec espace client, Stripe, Resend et Auth.js.
+Site de LINSAEM : sites vitrines par abonnement et développement web sur mesure.
+Next.js 16 (pages statiques), Tailwind CSS v4, déployé sur Vercel (région `cdg1`).
 
-## Stack
+Pas de base de données, pas d'authentification, pas de code Stripe : les abonnements se gèrent dans le dashboard Stripe (liens de paiement envoyés à la main, portail client sans code).
 
-- **Next.js 15** (App Router)
-- **Auth.js v5** (Google + Email/Password)
-- **Vercel Postgres** (base de données)
-- **Stripe** (paiements & factures)
-- **Resend** (emails transactionnels)
-- **Tailwind CSS**
-
-## Installation locale
+## Démarrer
 
 ```bash
 npm install
-cp .env.example .env.local
-# Remplir les variables d'environnement
-npm run dev
+cp .env.example .env.local   # remplir les valeurs (voir ci-dessous)
+npm run dev                  # http://localhost:3000
 ```
 
-## Déploiement sur Vercel
+| Commande | Rôle |
+|---|---|
+| `npm run dev` | serveur de développement |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript |
+| `npm run build` | build de production |
+| `npm run test:e2e` | Playwright : formulaire de contact, redirections, SEO (sitemap, données structurées) et audit d'accessibilité axe (WCAG AA) |
 
-### 1. Pusher sur GitHub
+Première utilisation de Playwright : `npx playwright install chromium`.
+
+## Modifier le contenu
+
+Tout le texte métier vient de `src/content/` :
+
+| Fichier | Contenu |
+|---|---|
+| `entreprise.ts` | coordonnées, mentions légales, délais affichés |
+| `offres.ts` | formules, prix TTC, frais de mise en service, process, offre développement |
+| `realisations.ts` | sites clients et applications développées, avec le contenu de leur page `/realisations/[slug]` (`publie: false` tant que le client n'a pas donné son accord) ; capture d'écran dans `src/assets/realisations/` |
+| `modeles.ts` | collection actuelle (7 modèles, une route chacun dans `src/app/modeles/<slug>/`) et première collection (route `/modeles/[slug]`) ; le rendu de chacun est dans `src/components/modeles/` |
+| `metiers.ts` | pages `/creation-site-internet/[metier]` : besoins, fonctionnalités, modèle et réalisation liés, FAQ |
+| `blog/` | articles en MDX (`*.mdx`) et leur registre (`index.ts` : titre, description, date, `publie`) |
+| `faq.ts` | FAQ de l'accueil, des sites vitrines et du développement (alimente aussi le JSON-LD) |
+
+Un prix modifié dans `offres.ts` se répercute partout : cartes, CGV, JSON-LD, formulaire. Pensez à modifier le Price correspondant dans Stripe.
+
+### Brouillons et publication
+
+Les pages métiers et les articles ont un champ `publie`. Tant qu'il vaut `false`, la page est générée **en local et sur les previews Vercel** (bandeau « Brouillon », `noindex`), mais **jamais en production**, et elle n'apparaît pas dans le sitemap. Pour publier : passer `publie: true`, commiter, déployer.
+
+Les articles renvoient vers des pages métiers : publiez-les ensemble.
+
+### Vignettes des modèles
+
+Les vignettes de la collection actuelle sont des captures des pages. Après une modification visuelle d'un modèle :
 
 ```bash
-git init
-git add .
-git commit -m "feat: LINSAEM v2"
-git remote add origin https://github.com/votre-compte/linsaem-v2.git
-git push -u origin main
+npm run build && npx next start --port 3100   # dans un terminal
+node scripts/apercus-modeles.mjs              # dans un autre
 ```
 
-### 2. Connecter à Vercel
+Chaque modèle de la collection actuelle a sa propre route : `next/font` rattache les polices à la route, une route commune ferait précharger les polices de tous les modèles sur chaque page.
 
-1. Aller sur [vercel.com](https://vercel.com) → New Project → Import depuis GitHub
-2. Vercel détecte automatiquement Next.js
-3. Cliquer **Deploy**
+## Formulaire de contact
 
-### 3. Ajouter Vercel Postgres
+`src/app/(site)/contact/actions.tsx` (Server Action), dans cet ordre :
+champ piège → validation Zod → Cloudflare Turnstile → email à LINSAEM (Resend) → accusé de réception au visiteur, au **texte fixe** (aucune saisie recopiée).
 
-Dashboard Vercel → Storage → Create → Postgres → Connecter au projet
-→ Les variables `POSTGRES_*` sont auto-ajoutées
+`CONTACT_DRY_RUN=1` désactive Turnstile et l'envoi (tests). Ce mode ne s'active jamais sur Vercel.
 
-### 4. Variables d'environnement (Vercel Dashboard → Settings → Env Vars)
+## Variables d'environnement (Vercel → Settings → Environment Variables)
 
-```
-AUTH_SECRET=          # openssl rand -base64 32
-AUTH_GOOGLE_ID=       # Google Cloud Console
-AUTH_GOOGLE_SECRET=   # Google Cloud Console
-RESEND_API_KEY=       # resend.com → API Keys
-RESEND_FROM_EMAIL=    contact@linsaem.fr
-RESEND_TO_EMAIL=      contact@linsaem.fr
-STRIPE_SECRET_KEY=    # dashboard.stripe.com
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_WEBHOOK_SECRET=  # stripe listen --forward-to ...
-STRIPE_STARTER_PRICE_ID=
-STRIPE_PRO_PRICE_ID=
-STRIPE_BUSINESS_PRICE_ID=
-NEXT_PUBLIC_APP_URL=  https://www.linsaem.fr
-```
+| Variable | Usage |
+|---|---|
+| `RESEND_API_KEY` | envoi des emails |
+| `RESEND_FROM_EMAIL` | expéditeur (domaine vérifié dans Resend) |
+| `RESEND_TO_EMAIL` | destinataire des demandes |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile |
+| `STRIPE_PORTAL_URL` | lien « Factures et résiliation » (pied de page, CGV, page Sites vitrines) : factures et résiliation en ligne pour les clients (lu au build) |
 
-### 5. Initialiser la base de données
+À activer dans le dashboard Vercel : **Web Analytics** (mesure d'audience sans cookie).
 
-Dans Vercel Dashboard → Storage → Postgres → Query :
-```sql
--- Copier-coller le contenu du SCHEMA dans src/lib/db.ts
-```
+## Redirections
 
-### 6. Configurer Stripe
-
-1. Créer 3 produits dans le dashboard Stripe (Starter, Pro, Business) avec facturation mensuelle
-2. Copier les Price IDs dans les variables d'environnement
-3. Configurer le webhook : `stripe listen --forward-to https://www.linsaem.fr/api/stripe/webhook`
-   - Événements : `customer.subscription.created`, `customer.subscription.deleted`, `invoice.payment_succeeded`, `invoice.payment_failed`
-
-### 7. Configurer Resend
-
-1. Créer un compte sur [resend.com](https://resend.com)
-2. Vérifier le domaine `linsaem.fr` (ajouter les DNS records)
-3. Créer une API key et l'ajouter dans les variables Vercel
-
-### 8. Configurer Google OAuth
-
-1. [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials
-2. Créer OAuth 2.0 Client ID
-3. Authorized redirect URIs : `https://www.linsaem.fr/api/auth/callback/google`
-
-### 9. Pointer linsaem.fr vers Vercel
-
-Dans votre registrar DNS :
-- Type : `CNAME`
-- Name : `www`
-- Value : `cname.vercel-dns.com`
-
-Et configurer le domaine dans Vercel Dashboard → Settings → Domains.
-
-## Structure du projet
-
-```
-src/
-├── app/
-│   ├── page.tsx                    # Page d'accueil
-│   ├── login/page.tsx              # Connexion
-│   ├── dashboard/
-│   │   ├── layout.tsx              # Layout avec sidebar (protégé)
-│   │   ├── page.tsx                # Tableau de bord
-│   │   ├── abonnement/page.tsx     # Abonnement + factures
-│   │   └── modifications/page.tsx  # Demandes de modifications
-│   └── api/
-│       ├── auth/[...nextauth]/     # Auth.js handler
-│       ├── contact/route.ts        # Formulaire → Resend
-│       ├── stripe/
-│       │   ├── checkout/route.ts   # Créer session Stripe
-│       │   └── webhook/route.ts    # Webhooks Stripe
-│       └── modifications/route.ts  # API modifications
-├── components/
-│   └── marketing/                  # Tous les composants de la page d'accueil
-└── lib/
-    ├── db.ts                       # Schéma + helpers Postgres
-    ├── emails.ts                   # Templates Resend
-    └── stripe.ts                   # Helpers Stripe
-```
+Dans `next.config.ts` (vérifiées par `tests/redirections.spec.ts`) : `/demos` et `/demos/<modèle>` → `/modeles…` (301) ; `/login`, `/register` et `/dashboard/*` → accueil ; `/politique-de-confidentialite` → `/confidentialite` ; anciennes routes v2 (`/admin`, `/set-password`…) et pages `.html` de la v1.

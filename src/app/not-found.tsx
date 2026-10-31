@@ -1,32 +1,32 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
+import { Container } from "@/components/ui/Container";
+import { ButtonLink } from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  title: "Page introuvable",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="text-center max-w-md">
-        <div
-          className="text-8xl font-extrabold mb-4 inline-block"
-          style={{
-            background: "var(--gradient-alt)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          404
-        </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">Page introuvable</h1>
-        <p className="text-gray-500 mb-8">
-          Cette page n&apos;existe pas ou a été déplacée.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link href="/" className="btn-gradient">
-            Retour à l&apos;accueil →
-          </Link>
-          <Link href="/#contact" className="btn-outline">
-            Nous contacter
-          </Link>
-        </div>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main id="contenu">
+        <Container className="flex min-h-[60vh] flex-col items-center justify-center py-20 text-center">
+          <p className="text-brand-gradient text-7xl font-extrabold">404</p>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight">Page introuvable</h1>
+          <p className="mt-4 text-lg text-slate-600">Cette page n&apos;existe pas ou a été déplacée.</p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <ButtonLink href="/">Retour à l&apos;accueil</ButtonLink>
+            <ButtonLink href="/contact" variant="secondary">
+              Contact
+            </ButtonLink>
+          </div>
+        </Container>
+      </main>
+      <Footer />
+    </>
   );
 }
