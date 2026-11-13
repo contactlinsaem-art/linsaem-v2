@@ -7,7 +7,7 @@ import { FilAriane } from "@/components/site/FilAriane";
 import { BandeauBrouillon } from "@/components/site/BandeauBrouillon";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPrix, prixMinimum } from "@/content/offres";
-import { articleJsonLd, pageMetadata } from "@/lib/seo";
+import { articleJsonLd, imageAvecTitre, pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
     description: article.description,
     path: `/blog/${article.slug}`,
     noindex: !article.publie,
+    image: imageAvecTitre(`/blog/${article.slug}`, article.titre),
   });
   return {
     ...meta,

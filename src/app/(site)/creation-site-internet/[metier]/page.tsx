@@ -16,7 +16,7 @@ import { CtaBand } from "@/components/site/CtaBand";
 import { FilAriane } from "@/components/site/FilAriane";
 import { BandeauBrouillon } from "@/components/site/BandeauBrouillon";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absoluteUrl, faqJsonLd, pageMetadata } from "@/lib/seo";
+import { absoluteUrl, faqJsonLd, imageAvecTitre, pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/creation-site-int
     description: metier.metaDescription,
     path: `/creation-site-internet/${metier.slug}`,
     noindex: !metier.publie,
+    image: imageAvecTitre(`/creation-site-internet/${metier.slug}`, metier.metaTitre),
   });
 }
 

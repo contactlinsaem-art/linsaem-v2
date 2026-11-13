@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { entreprise } from "@/content/entreprise";
+import { imageGenerale } from "@/lib/seo";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -19,12 +20,14 @@ export const metadata: Metadata = {
   description:
     "Sites vitrines professionnels hébergés et maintenus dès 5,99 € TTC par mois, et développement web sur mesure sur devis : applications, SaaS, intégrations.",
   applicationName: entreprise.nom,
+  // Valeurs par défaut (page 404…) : les pages passent par pageMetadata(), qui redéclare l'image.
   openGraph: {
     type: "website",
     locale: "fr_FR",
     siteName: entreprise.nom,
+    images: [imageGenerale],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: [{ url: imageGenerale.url, alt: imageGenerale.alt }] },
   formatDetection: { telephone: false, email: false, address: false },
 };
 

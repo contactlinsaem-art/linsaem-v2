@@ -11,7 +11,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { BrowserFrame } from "@/components/site/BrowserFrame";
 import { CtaBand } from "@/components/site/CtaBand";
 import { FilAriane } from "@/components/site/FilAriane";
-import { pageMetadata } from "@/lib/seo";
+import { imageCapture, pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: PageProps<"/realisations/[slu
     title: r.type === "client" ? `${r.nom} : site internet ${r.secteur.toLowerCase()}` : `${r.nom} : ${r.secteur}`,
     description: r.description,
     path: `/realisations/${r.slug}`,
+    image: imageCapture(r.apercu, `Page d'accueil de ${r.nom}`),
   });
 }
 

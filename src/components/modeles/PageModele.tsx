@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { getModele } from "@/content/modeles";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, imageCapture, pageMetadata } from "@/lib/seo";
 
 /** Metadata d'une page de modèle. */
 export function modeleMetadata(slug: string): Metadata {
@@ -12,6 +12,7 @@ export function modeleMetadata(slug: string): Metadata {
     title: `Modèle de site ${modele.secteur.toLowerCase()} : ${modele.nom}`,
     description: `${modele.description} Modèle de design LINSAEM, adaptable à votre activité.`,
     path: `/modeles/${modele.slug}`,
+    image: imageCapture(modele.apercu, `Page d'accueil du modèle ${modele.nom}`),
   });
 }
 

@@ -1,4 +1,4 @@
-// Régénère les vignettes des modèles (src/assets/modeles/apercus/*.jpg) à partir d'un serveur en cours d'exécution.
+// Régénère les captures des modèles (src/assets/modeles/apercus/*.jpg : vignettes et images de partage) à partir d'un serveur en cours d'exécution.
 // Usage : npm run build && npx next start --port 3100, puis : node scripts/apercus-modeles.mjs [url]
 import { readFileSync } from "node:fs";
 import { chromium } from "@playwright/test";

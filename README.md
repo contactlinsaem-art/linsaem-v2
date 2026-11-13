@@ -19,7 +19,7 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript |
 | `npm run build` | build de production |
-| `npm run test:e2e` | Playwright : formulaire de contact, redirections, SEO (sitemap, données structurées) et audit d'accessibilité axe (WCAG AA) |
+| `npm run test:e2e` | Playwright : formulaire de contact, redirections, SEO (sitemap, données structurées, images de partage), téléphones fictifs des modèles et audit d'accessibilité axe (WCAG AA) |
 
 Première utilisation de Playwright : `npx playwright install chromium`.
 
@@ -45,9 +45,22 @@ Les pages métiers et les articles ont un champ `publie`. Tant qu'il vaut `false
 
 Les articles renvoient vers des pages métiers : publiez-les ensemble.
 
+### Images de partage (Open Graph)
+
+Déclarées par `pageMetadata()` (`src/lib/seo.ts`), en URL absolue, pour `og:image` et `twitter:image` :
+
+| Pages | Image |
+|---|---|
+| accueil et pages générales | `/og.png`, image générale générée au build (`src/lib/image-partage.tsx`, police DM Sans dans `src/assets/fonts/`) |
+| pages métiers, articles | image générale avec le titre de la page : `/og/creation-site-internet/<slug>.png`, `/og/blog/<slug>.png` |
+| réalisations | capture du site (`apercu` dans `realisations.ts`) |
+| modèles | capture de la page du modèle (`apercu` dans `modeles.ts`) |
+
+Une page qui définit `openGraph` remplace entièrement celui du layout : passez toujours par `pageMetadata()`. `tests/partage.spec.ts` vérifie chaque page.
+
 ### Vignettes des modèles
 
-Les vignettes de la collection actuelle sont des captures des pages. Après une modification visuelle d'un modèle :
+Les vignettes de la collection actuelle et les images de partage de tous les modèles (`src/assets/modeles/apercus/`) sont des captures des pages. Après une modification visuelle d'un modèle :
 
 ```bash
 npm run build && npx next start --port 3100   # dans un terminal
