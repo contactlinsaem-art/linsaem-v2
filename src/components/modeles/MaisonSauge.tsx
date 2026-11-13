@@ -233,7 +233,7 @@ export function MaisonSauge() {
                 <label htmlFor="sauge-email" className="text-sm">
                   Adresse email
                 </label>
-                <input id="sauge-email" type="email" autoComplete="email" placeholder="vous@exemple.fr" className={champ} />
+                <input id="sauge-email" type="email" autoComplete="email" placeholder="vous@domaine.example" className={champ} />
               </div>
             </DemoForm>
           </div>

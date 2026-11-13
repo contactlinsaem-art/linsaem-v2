@@ -2,14 +2,14 @@ import Image, { type StaticImageData } from "next/image";
 import { Fraunces, Work_Sans } from "next/font/google";
 import { Clock, MapPin, Phone, Wheat } from "lucide-react";
 import { DemoForm } from "./shared/DemoForm";
-import vitrine from "@/assets/modeles/fournil-saint-roch/vitrine.jpg";
-import miches from "@/assets/modeles/fournil-saint-roch/miches.jpg";
-import croissants from "@/assets/modeles/fournil-saint-roch/croissants.jpg";
-import viennoiseries from "@/assets/modeles/fournil-saint-roch/viennoiseries.jpg";
-import miche from "@/assets/modeles/fournil-saint-roch/miche.jpg";
-import painsAuChocolat from "@/assets/modeles/fournil-saint-roch/pains-au-chocolat.jpg";
-import pains from "@/assets/modeles/fournil-saint-roch/pains.jpg";
-import painTranche from "@/assets/modeles/fournil-saint-roch/pain-tranche.jpg";
+import vitrine from "@/assets/modeles/fournil-belcroute/vitrine.jpg";
+import miches from "@/assets/modeles/fournil-belcroute/miches.jpg";
+import croissants from "@/assets/modeles/fournil-belcroute/croissants.jpg";
+import viennoiseries from "@/assets/modeles/fournil-belcroute/viennoiseries.jpg";
+import miche from "@/assets/modeles/fournil-belcroute/miche.jpg";
+import painsAuChocolat from "@/assets/modeles/fournil-belcroute/pains-au-chocolat.jpg";
+import pains from "@/assets/modeles/fournil-belcroute/pains.jpg";
+import painTranche from "@/assets/modeles/fournil-belcroute/pain-tranche.jpg";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--fournil-display" });
 const texte = Work_Sans({ subsets: ["latin"], variable: "--fournil-texte" });
@@ -41,7 +41,7 @@ const HORAIRES = [
 const champ =
   "w-full rounded-xl border-2 border-[#e6d6bd] bg-white px-4 py-3 focus:border-[#8a3b12] focus:outline-none";
 
-export function FournilSaintRoch() {
+export function FournilBelcroute() {
   return (
     <div className={`${display.variable} ${texte.variable} bg-[#fbf4e8] text-[#3b1d0c] [font-family:var(--fournil-texte)]`}>
       <div className="bg-[#8a3b12] px-6 py-2.5 text-center text-sm text-[#fbf4e8]">
@@ -54,7 +54,7 @@ export function FournilSaintRoch() {
       <header className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-6">
         <p className={`${titre} flex items-center gap-2 text-2xl font-semibold`}>
           <Wheat aria-hidden="true" className="text-[#b5641f]" />
-          Fournil Saint-Roch
+          Fournil Belcroûte
         </p>
         <nav aria-label="Menu du Fournil" className="hidden gap-8 font-medium md:flex">
           <a href="#fournees" className="hover:text-[#8a3b12]">Fournées</a>
@@ -250,7 +250,7 @@ export function FournilSaintRoch() {
         <div>
           <h2 className={`${titre} text-4xl font-semibold`}>Horaires</h2>
           <table className="mt-8 w-full text-left text-lg">
-            <caption className="sr-only">Horaires d&apos;ouverture du Fournil Saint-Roch</caption>
+            <caption className="sr-only">Horaires d&apos;ouverture du Fournil Belcroûte</caption>
             <tbody>
               {HORAIRES.map(([jour, heures]) => (
                 <tr key={jour} className="border-b border-dashed border-[#d9c09b]">
@@ -266,7 +266,7 @@ export function FournilSaintRoch() {
           <ul className="mt-8 space-y-5 text-lg">
             <li className="flex gap-3">
               <MapPin aria-hidden="true" className="mt-1 shrink-0 text-[#8a3b12]" />
-              Place Saint-Roch, quartier de l&apos;Écusson, Montpellier
+              Place du Levain, Montpellier
             </li>
             <li className="flex gap-3">
               <Phone aria-hidden="true" className="mt-1 shrink-0 text-[#8a3b12]" />
@@ -284,7 +284,7 @@ export function FournilSaintRoch() {
       </section>
 
       <footer className="bg-[#3b1d0c] px-6 py-8 text-center text-sm text-[#f0dcc2]">
-        Fournil Saint-Roch · Boulangerie au levain · Entreprise fictive
+        Fournil Belcroûte · Boulangerie au levain · Entreprise fictive
       </footer>
     </div>
   );

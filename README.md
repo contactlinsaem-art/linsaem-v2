@@ -77,4 +77,6 @@ champ piège → validation Zod → Cloudflare Turnstile → email à LINSAEM (R
 
 ## Redirections
 
-Dans `next.config.ts` (vérifiées par `tests/redirections.spec.ts`) : `/demos` et `/demos/<modèle>` → `/modeles…` (301) ; `/login`, `/register` et `/dashboard/*` → accueil ; `/politique-de-confidentialite` → `/confidentialite` ; anciennes routes v2 (`/admin`, `/set-password`…) et pages `.html` de la v1.
+Dans `next.config.ts` (vérifiées par `tests/redirections.spec.ts`) : `/demos` et `/demos/<modèle>` → `/modeles…` (301) ; `/login`, `/register` et `/dashboard/*` → accueil ; `/politique-de-confidentialite` → `/confidentialite` ; anciennes routes v2 (`/admin`, `/set-password`…) ; pages `.html` de la v1 (`/index.html` → accueil, 301) ; anciens slugs des modèles renommés (301).
+
+Les noms des modèles doivent être manifestement fictifs : avant d'en créer ou d'en renommer un, vérifier qu'aucune entreprise ne le porte (annuaire-entreprises.data.gouv.fr et recherche web). Téléphones dans les plages réservées à la fiction par l'ARCEP, emails en `.example`, adresses inexistantes.

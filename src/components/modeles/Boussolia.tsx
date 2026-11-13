@@ -2,15 +2,15 @@ import Image from "next/image";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import { Briefcase, Compass, HeartHandshake, Sparkles, Check, Video, MapPin } from "lucide-react";
 import { SlotPicker } from "./shared/SlotPicker";
-import horizon from "@/assets/modeles/cap-equilibre/horizon.jpg";
-import atelier from "@/assets/modeles/cap-equilibre/atelier.jpg";
-import echange from "@/assets/modeles/cap-equilibre/echange.jpg";
-import reussite from "@/assets/modeles/cap-equilibre/reussite.jpg";
+import horizon from "@/assets/modeles/boussolia/horizon.jpg";
+import atelier from "@/assets/modeles/boussolia/atelier.jpg";
+import echange from "@/assets/modeles/boussolia/echange.jpg";
+import reussite from "@/assets/modeles/boussolia/reussite.jpg";
 
-const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--cap-display" });
-const texte = Figtree({ subsets: ["latin"], variable: "--cap-texte" });
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--boussolia-display" });
+const texte = Figtree({ subsets: ["latin"], variable: "--boussolia-texte" });
 
-const titre = "[font-family:var(--cap-display)]";
+const titre = "[font-family:var(--boussolia-display)]";
 
 const POUR_QUI = [
   { icone: Compass, titre: "Reconversion", texte: "Vous sentez qu'il est temps de changer de voie, sans savoir encore laquelle." },
@@ -38,15 +38,15 @@ const FAQ = [
   { q: "Mon employeur peut-il financer le coaching ?", r: "C'est souvent possible dans le cadre du plan de développement des compétences. Une facture au nom de l'entreprise peut être établie." },
 ];
 
-export function CapEquilibre() {
+export function Boussolia() {
   return (
-    <div className={`${display.variable} ${texte.variable} bg-[#fff8ef] text-[#16323d] [font-family:var(--cap-texte)]`}>
+    <div className={`${display.variable} ${texte.variable} bg-[#fff8ef] text-[#16323d] [font-family:var(--boussolia-texte)]`}>
       <header className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-6">
         <p className={`${titre} flex items-center gap-2 text-xl font-bold`}>
           <span aria-hidden="true" className="size-6 rounded-full bg-[#e8664a] ring-4 ring-[#ffd9cc]" />
-          Cap Équilibre
+          Boussolia
         </p>
-        <nav aria-label="Menu Cap Équilibre" className="hidden gap-8 font-medium md:flex">
+        <nav aria-label="Menu Boussolia" className="hidden gap-8 font-medium md:flex">
           <a href="#pour-qui" className="hover:text-[#b83f27]">Pour qui</a>
           <a href="#methode" className="hover:text-[#b83f27]">Méthode</a>
           <a href="#programmes" className="hover:text-[#b83f27]">Programmes</a>
@@ -238,7 +238,7 @@ export function CapEquilibre() {
         </div>
       </section>
 
-      <footer className="px-6 py-8 text-center text-sm text-[#3c5560]">Cap Équilibre · Coaching à Lille et en visio · Entreprise fictive</footer>
+      <footer className="px-6 py-8 text-center text-sm text-[#3c5560]">Boussolia · Coaching à Lille et en visio · Entreprise fictive</footer>
     </div>
   );
 }

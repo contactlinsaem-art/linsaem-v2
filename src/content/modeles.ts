@@ -7,12 +7,12 @@ import coverPhotographe from "@/assets/modeles/covers/photographe.jpg";
 import coverRestaurant from "@/assets/modeles/covers/restaurant.jpg";
 import coverCoach from "@/assets/modeles/covers/coach.jpg";
 import apercuSauge from "@/assets/modeles/apercus/maison-sauge.jpg";
-import apercuFournil from "@/assets/modeles/apercus/fournil-saint-roch.jpg";
-import apercuFerrand from "@/assets/modeles/apercus/ferrand-plomberie.jpg";
-import apercuLigne from "@/assets/modeles/apercus/studio-ligne.jpg";
+import apercuFournil from "@/assets/modeles/apercus/fournil-belcroute.jpg";
+import apercuTuyaumax from "@/assets/modeles/apercus/tuyaumax-plomberie.jpg";
+import apercuEquerreau from "@/assets/modeles/apercus/studio-equerreau.jpg";
 import apercuGrain from "@/assets/modeles/apercus/atelier-grain.jpg";
-import apercuOlivette from "@/assets/modeles/apercus/maison-olivette.jpg";
-import apercuCap from "@/assets/modeles/apercus/cap-equilibre.jpg";
+import apercuFiguelune from "@/assets/modeles/apercus/maison-figuelune.jpg";
+import apercuBoussolia from "@/assets/modeles/apercus/boussolia.jpg";
 
 export type Modele = {
   slug: string;
@@ -45,8 +45,8 @@ export const modeles: Modele[] = [
     typographies: "Cormorant · DM Sans",
   },
   {
-    slug: "fournil-saint-roch",
-    nom: "Fournil Saint-Roch",
+    slug: "fournil-belcroute",
+    nom: "Fournil Belcroûte",
     secteur: "Boulangerie artisanale",
     description: "Un commerce de quartier chaleureux : horaires de sortie du four, spécialités, commande à emporter et horaires d'ouverture.",
     cover: apercuFournil,
@@ -55,21 +55,21 @@ export const modeles: Modele[] = [
     typographies: "Fraunces · Work Sans",
   },
   {
-    slug: "ferrand-plomberie",
-    nom: "Ferrand Plomberie",
+    slug: "tuyaumax-plomberie",
+    nom: "Tuyaumax Plomberie",
     secteur: "Artisan du bâtiment",
     description: "Un site qui fait sonner le téléphone : urgence 7 j/7, prestations, zone d'intervention et devis en ligne.",
-    cover: apercuFerrand,
+    cover: apercuTuyaumax,
     coverAlt: "",
     palette: ["#0c1b2e", "#ffc53d", "#f4f6f8"],
     typographies: "Archivo",
   },
   {
-    slug: "studio-ligne",
-    nom: "Studio Ligne",
+    slug: "studio-equerreau",
+    nom: "Studio Équerreau",
     secteur: "Cabinet d'architecture",
     description: "Un portfolio minimal et typographique : projets en grand format, démarche en quatre temps et contact.",
-    cover: apercuLigne,
+    cover: apercuEquerreau,
     coverAlt: "",
     palette: ["#f2f1ed", "#141414", "#b0502c"],
     typographies: "Syne · DM Sans",
@@ -85,21 +85,21 @@ export const modeles: Modele[] = [
     typographies: "Playfair Display · Manrope",
   },
   {
-    slug: "maison-olivette",
-    nom: "Maison Olivette",
+    slug: "maison-figuelune",
+    nom: "Maison Figuelune",
     secteur: "Restaurant",
     description: "Une table méditerranéenne : carte par onglets, menu du moment, histoire de la maison et réservation.",
-    cover: apercuOlivette,
+    cover: apercuFiguelune,
     coverAlt: "",
     palette: ["#1e2a1c", "#d9b46a", "#f6f0e2"],
     typographies: "DM Serif Display · Karla",
   },
   {
-    slug: "cap-equilibre",
-    nom: "Cap Équilibre",
+    slug: "boussolia",
+    nom: "Boussolia",
     secteur: "Coach",
     description: "Un site qui met en confiance : pour qui, méthode en étapes, programmes avec tarifs et choix d'un créneau.",
-    cover: apercuCap,
+    cover: apercuBoussolia,
     coverAlt: "",
     palette: ["#fff8ef", "#16323d", "#e8664a"],
     typographies: "Bricolage Grotesque · Figtree",

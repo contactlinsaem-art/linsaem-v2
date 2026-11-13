@@ -10,6 +10,8 @@ test.describe("SEO", () => {
     const xml = await (await request.get("/sitemap.xml")).text();
     expect(xml).toContain("/realisations/cvuzz");
     expect(xml).toContain("/modeles/maison-sauge");
+    expect(xml).toContain("/modeles/tuyaumax-plomberie");
+    expect(xml).not.toContain("ferrand");
     // Pages métiers et articles sont en brouillon (publie: false) tant qu'ils ne sont pas validés.
     expect(xml).not.toContain("/creation-site-internet/");
     expect(xml).not.toContain("/blog");
@@ -28,7 +30,7 @@ test.describe("SEO", () => {
     ["/realisations/fatuiali", ["BreadcrumbList"]],
     ["/creation-site-internet/coach", ["Service", "FAQPage", "BreadcrumbList"]],
     ["/blog/site-internet-ou-page-facebook", ["Article", "BreadcrumbList"]],
-    ["/modeles/studio-ligne", ["BreadcrumbList"]],
+    ["/modeles/studio-equerreau", ["BreadcrumbList"]],
   ];
 
   for (const [path, types] of attendus) {

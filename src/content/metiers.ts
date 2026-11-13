@@ -69,7 +69,7 @@ export const metiers: Metier[] = [
       },
     ],
     modele: {
-      slug: "ferrand-plomberie",
+      slug: "tuyaumax-plomberie",
       raison: "Numéro d'urgence en tête de page, prestations, zone d'intervention et demande de devis.",
     },
     faq: [
@@ -131,7 +131,7 @@ export const metiers: Metier[] = [
       { titre: "Offres du moment", texte: "Une offre de bienvenue ou un forfait de saison mis en avant en haut de page." },
     ],
     modele: {
-      slug: "cap-equilibre",
+      slug: "boussolia",
       raison: "Prestations avec tarifs et choix d'un créneau de rendez-vous, sur une mise en page douce et aérée.",
     },
     realisation: "aux-mille-et-une-beautes",
@@ -194,7 +194,7 @@ export const metiers: Metier[] = [
       { titre: "Allergènes", texte: "La présence des 14 allergènes majeurs peut être signalée plat par plat." },
     ],
     modele: {
-      slug: "maison-olivette",
+      slug: "maison-figuelune",
       raison: "Carte par onglets, histoire de la maison, horaires et formulaire de réservation.",
     },
     faq: [
@@ -262,7 +262,7 @@ export const metiers: Metier[] = [
       },
     ],
     modele: {
-      slug: "ferrand-plomberie",
+      slug: "tuyaumax-plomberie",
       raison: "Même logique d'intervention à domicile : prestations, zone desservie et demande de devis mises en avant.",
     },
     realisation: "fatuiali",
@@ -327,7 +327,7 @@ export const metiers: Metier[] = [
       { titre: "Blog", texte: "Des articles sur vos thèmes de prédilection, pour être trouvé sur des questions précises (formule Business)." },
     ],
     modele: {
-      slug: "cap-equilibre",
+      slug: "boussolia",
       raison: "Programmes avec tarifs, méthode en étapes et choix d'un créneau de rendez-vous.",
     },
     faq: [

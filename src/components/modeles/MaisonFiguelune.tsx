@@ -3,18 +3,18 @@ import { DM_Serif_Display, Karla } from "next/font/google";
 import { Clock, MapPin, Phone } from "lucide-react";
 import { Tabs } from "./shared/Tabs";
 import { DemoForm } from "./shared/DemoForm";
-import table from "@/assets/modeles/maison-olivette/table.jpg";
-import salle from "@/assets/modeles/maison-olivette/salle.jpg";
-import chef from "@/assets/modeles/maison-olivette/chef.jpg";
-import plats from "@/assets/modeles/maison-olivette/plats.jpg";
-import salade from "@/assets/modeles/maison-olivette/salade.jpg";
-import pates from "@/assets/modeles/maison-olivette/pates.jpg";
-import terrasse from "@/assets/modeles/maison-olivette/terrasse.jpg";
+import table from "@/assets/modeles/maison-figuelune/table.jpg";
+import salle from "@/assets/modeles/maison-figuelune/salle.jpg";
+import chef from "@/assets/modeles/maison-figuelune/chef.jpg";
+import plats from "@/assets/modeles/maison-figuelune/plats.jpg";
+import salade from "@/assets/modeles/maison-figuelune/salade.jpg";
+import pates from "@/assets/modeles/maison-figuelune/pates.jpg";
+import terrasse from "@/assets/modeles/maison-figuelune/terrasse.jpg";
 
-const display = DM_Serif_Display({ subsets: ["latin"], weight: "400", variable: "--olivette-display" });
-const texte = Karla({ subsets: ["latin"], variable: "--olivette-texte" });
+const display = DM_Serif_Display({ subsets: ["latin"], weight: "400", variable: "--figuelune-display" });
+const texte = Karla({ subsets: ["latin"], variable: "--figuelune-texte" });
 
-const serif = "[font-family:var(--olivette-display)]";
+const serif = "[font-family:var(--figuelune-display)]";
 
 type Plat = { nom: string; detail: string; prix: string };
 
@@ -63,16 +63,16 @@ function LigneCarte({ plat }: { plat: Plat }) {
   );
 }
 
-export function MaisonOlivette() {
+export function MaisonFiguelune() {
   return (
-    <div className={`${display.variable} ${texte.variable} bg-[#f6f0e2] text-[#1e2a1c] [font-family:var(--olivette-texte)]`}>
+    <div className={`${display.variable} ${texte.variable} bg-[#f6f0e2] text-[#1e2a1c] [font-family:var(--figuelune-texte)]`}>
       {/* Hero */}
       <section className="relative flex min-h-[90vh] flex-col overflow-hidden bg-[#1e2a1c] text-[#f6f0e2]">
         <Image src={table} quality={50} alt="" fill priority fetchPriority="high" placeholder="blur" sizes="100vw" className="slow-zoom object-cover opacity-55" />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-[#1e2a1c] via-[#1e2a1c]/40 to-[#1e2a1c]/70" />
         <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-          <p className={`${serif} text-2xl`}>Maison Olivette</p>
-          <nav aria-label="Menu Maison Olivette" className="hidden gap-8 text-sm font-semibold tracking-wider uppercase md:flex">
+          <p className={`${serif} text-2xl`}>Maison Figuelune</p>
+          <nav aria-label="Menu Maison Figuelune" className="hidden gap-8 text-sm font-semibold tracking-wider uppercase md:flex">
             <a href="#carte" className="hover:text-[#d9b46a]">La carte</a>
             <a href="#maison" className="hover:text-[#d9b46a]">La maison</a>
             <a href="#infos" className="hover:text-[#d9b46a]">Infos</a>
@@ -86,7 +86,7 @@ export function MaisonOlivette() {
             <Clock aria-hidden="true" size={15} className="text-[#d9b46a]" /> Ce soir : 19h30 — 22h
           </p>
           <h1 className={`fade-up ${serif} mt-8 text-6xl leading-none [animation-delay:100ms] sm:text-8xl lg:text-9xl`}>
-            Maison <span className="text-[#d9b46a]">Olivette</span>
+            Maison <span className="text-[#d9b46a]">Figuelune</span>
           </h1>
           <p className="fade-up mx-auto mt-6 max-w-xl text-lg text-[#e6dfcd] [animation-delay:200ms]">
             Cuisine méditerranéenne de saison, à deux pas du Vieux-Port de Marseille.
@@ -198,7 +198,7 @@ export function MaisonOlivette() {
             <ul className="mt-8 space-y-4">
               <li className="flex gap-3">
                 <MapPin aria-hidden="true" className="mt-0.5 shrink-0 text-[#7a5c22]" />
-                Rue de la Paix-Marcel-Paul, Marseille 1er
+                Rue des Figuiers-de-Lune, Marseille 1er
               </li>
               <li className="flex gap-3">
                 <Phone aria-hidden="true" className="mt-0.5 shrink-0 text-[#7a5c22]" />
@@ -215,20 +215,20 @@ export function MaisonOlivette() {
               <DemoForm submitLabel="Demander la réservation" submitClassName="rounded-full bg-[#1e2a1c] px-8 py-4 font-bold text-[#f6f0e2]" noteClassName="text-[#4b5547]">
                 <div className="grid gap-5 sm:grid-cols-[1.4fr_1fr_1fr]">
                   <div>
-                    <label htmlFor="olivette-date" className="mb-1.5 block font-bold">Date</label>
-                    <input id="olivette-date" type="date" className={champ} />
+                    <label htmlFor="figuelune-date" className="mb-1.5 block font-bold">Date</label>
+                    <input id="figuelune-date" type="date" className={champ} />
                   </div>
                   <div>
-                    <label htmlFor="olivette-heure" className="mb-1.5 block font-bold">Heure</label>
-                    <select id="olivette-heure" className={champ} defaultValue="20h">
+                    <label htmlFor="figuelune-heure" className="mb-1.5 block font-bold">Heure</label>
+                    <select id="figuelune-heure" className={champ} defaultValue="20h">
                       {["12h", "12h30", "13h", "19h30", "20h", "20h30", "21h"].map((h) => (
                         <option key={h}>{h}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="olivette-couverts" className="mb-1.5 block font-bold">Couverts</label>
-                    <select id="olivette-couverts" className={champ} defaultValue="2">
+                    <label htmlFor="figuelune-couverts" className="mb-1.5 block font-bold">Couverts</label>
+                    <select id="figuelune-couverts" className={champ} defaultValue="2">
                       {["1", "2", "3", "4", "5", "6"].map((n) => (
                         <option key={n}>{n}</option>
                       ))}
@@ -237,12 +237,12 @@ export function MaisonOlivette() {
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="olivette-nom" className="mb-1.5 block font-bold">Nom</label>
-                    <input id="olivette-nom" autoComplete="name" className={champ} />
+                    <label htmlFor="figuelune-nom" className="mb-1.5 block font-bold">Nom</label>
+                    <input id="figuelune-nom" autoComplete="name" className={champ} />
                   </div>
                   <div>
-                    <label htmlFor="olivette-tel" className="mb-1.5 block font-bold">Téléphone</label>
-                    <input id="olivette-tel" type="tel" autoComplete="tel" className={champ} />
+                    <label htmlFor="figuelune-tel" className="mb-1.5 block font-bold">Téléphone</label>
+                    <input id="figuelune-tel" type="tel" autoComplete="tel" className={champ} />
                   </div>
                 </div>
               </DemoForm>
@@ -252,7 +252,7 @@ export function MaisonOlivette() {
       </section>
 
       <footer className="bg-[#1e2a1c] px-6 py-8 text-center text-sm text-[#e6dfcd]">
-        <span className={`${serif} text-lg text-[#f6f0e2]`}>Maison Olivette</span> · Restaurant à Marseille · Entreprise fictive
+        <span className={`${serif} text-lg text-[#f6f0e2]`}>Maison Figuelune</span> · Restaurant à Marseille · Entreprise fictive
       </footer>
     </div>
   );

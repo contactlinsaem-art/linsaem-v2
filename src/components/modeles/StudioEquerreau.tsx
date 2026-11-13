@@ -4,15 +4,15 @@ import { ArrowUpRight } from "lucide-react";
 import { FilterGrid } from "./shared/FilterGrid";
 import { DemoForm } from "./shared/DemoForm";
 import { Counter } from "./shared/Counter";
-import maison from "@/assets/modeles/studio-ligne/maison.jpg";
-import sejour from "@/assets/modeles/studio-ligne/sejour.jpg";
-import verre from "@/assets/modeles/studio-ligne/verre.jpg";
-import couloir from "@/assets/modeles/studio-ligne/couloir.jpg";
+import maison from "@/assets/modeles/studio-equerreau/maison.jpg";
+import sejour from "@/assets/modeles/studio-equerreau/sejour.jpg";
+import verre from "@/assets/modeles/studio-equerreau/verre.jpg";
+import couloir from "@/assets/modeles/studio-equerreau/couloir.jpg";
 import villa from "@/assets/modeles/architecte/villa.jpg";
 
-const display = Syne({ subsets: ["latin"], variable: "--ligne-display" });
+const display = Syne({ subsets: ["latin"], variable: "--equerreau-display" });
 
-const syne = "[font-family:var(--ligne-display)]";
+const syne = "[font-family:var(--equerreau-display)]";
 
 type Projet = { numero: string; nom: string; lieu: string; annee: string; type: string; image: StaticImageData; alt: string };
 
@@ -39,12 +39,12 @@ const DEMARCHE = [
 
 const champ = "w-full border-0 border-b-2 border-[#141414]/25 bg-transparent px-0 py-3 focus:border-[#141414] focus:ring-0 focus:outline-none";
 
-export function StudioLigne() {
+export function StudioEquerreau() {
   return (
     <div className={`${display.variable} bg-[#f2f1ed] text-[#141414]`}>
       <header className="mx-auto flex max-w-[90rem] items-center justify-between gap-6 px-6 py-6 sm:px-10">
-        <p className={`${syne} text-lg font-bold tracking-tight`}>studio ligne</p>
-        <nav aria-label="Menu Studio Ligne" className="flex gap-6 text-sm">
+        <p className={`${syne} text-lg font-bold tracking-tight`}>studio équerreau</p>
+        <nav aria-label="Menu Studio Équerreau" className="flex gap-6 text-sm">
           <a href="#projets" className="hover:text-[#b0502c]">Projets</a>
           <a href="#demarche" className="hidden hover:text-[#b0502c] sm:inline">Démarche</a>
           <a href="#contact" className="hover:text-[#b0502c]">Contact</a>
@@ -172,7 +172,7 @@ export function StudioLigne() {
           <p className="mt-6 max-w-md text-lg leading-relaxed text-[#3d3b37]">
             Décrivez-le en quelques lignes : terrain, surface, calendrier. Un premier rendez-vous sur place est offert.
           </p>
-          <p className="mt-10 text-sm text-[#5c5a55]">Quai des Chartrons, Bordeaux</p>
+          <p className="mt-10 text-sm text-[#5c5a55]">Quai de l&apos;Équerre, Bordeaux</p>
           <a href="tel:+33536490000" className={`${syne} mt-2 inline-block text-3xl font-bold hover:text-[#b0502c]`}>
             05 36 49 00 00
           </a>
@@ -183,28 +183,28 @@ export function StudioLigne() {
           noteClassName="text-[#5c5a55]"
         >
           <div>
-            <label htmlFor="ligne-nom" className="text-sm text-[#3d3b37]">
+            <label htmlFor="equerreau-nom" className="text-sm text-[#3d3b37]">
               Nom
             </label>
-            <input id="ligne-nom" autoComplete="name" className={champ} />
+            <input id="equerreau-nom" autoComplete="name" className={champ} />
           </div>
           <div>
-            <label htmlFor="ligne-email" className="text-sm text-[#3d3b37]">
+            <label htmlFor="equerreau-email" className="text-sm text-[#3d3b37]">
               Email
             </label>
-            <input id="ligne-email" type="email" autoComplete="email" className={champ} />
+            <input id="equerreau-email" type="email" autoComplete="email" className={champ} />
           </div>
           <div>
-            <label htmlFor="ligne-projet" className="text-sm text-[#3d3b37]">
+            <label htmlFor="equerreau-projet" className="text-sm text-[#3d3b37]">
               Votre projet
             </label>
-            <textarea id="ligne-projet" rows={4} className={champ} />
+            <textarea id="equerreau-projet" rows={4} className={champ} />
           </div>
         </DemoForm>
       </section>
 
       <footer className="mx-auto flex max-w-[90rem] flex-wrap justify-between gap-4 border-t border-[#141414]/15 px-6 py-8 text-sm text-[#5c5a55] sm:px-10">
-        <p className={`${syne} font-bold text-[#141414]`}>studio ligne</p>
+        <p className={`${syne} font-bold text-[#141414]`}>studio équerreau</p>
         <p>Cabinet d&apos;architecture · Entreprise fictive</p>
       </footer>
     </div>
