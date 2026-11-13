@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
 const modeles = ["vitrine", "boulangerie", "artisan", "architecte", "photographe", "restaurant", "coach"];
+const modelesV1 = ["artisan", "boulangerie", "architecte", "photographe"];
+const modelesRenommes: Record<string, string> = {
+  "fournil-saint-roch": "fournil-belcroute",
+  "studio-ligne": "studio-equerreau",
+  "maison-olivette": "maison-figuelune",
+  "cap-equilibre": "boussolia",
+};
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -26,13 +33,19 @@ const nextConfig: NextConfig = {
       { source: "/forgot-password", destination: "/", permanent: true },
       { source: "/politique-de-confidentialite", destination: "/confidentialite", permanent: true },
 
-      // Anciennes pages de la v1
-      ...["artisan", "boulangerie", "architecte", "photographe"].map((slug) => ({
-        source: `/${slug}.html`,
-        destination: `/modeles/${slug}`,
-        permanent: true,
+      // Modèles renommés : leur ancien nom était porté par une entreprise réelle.
+      // Ancien plombier : vers la liste, sans lien entre l'ancien nom et le nouveau.
+      { source: "/modeles/ferrand-plomberie", destination: "/modeles", statusCode: 301 },
+      ...Object.entries(modelesRenommes).map(([ancien, nouveau]) => ({
+        source: `/modeles/${ancien}`,
+        destination: `/modeles/${nouveau}`,
+        statusCode: 301 as const,
       })),
-      { source: "/404.html", destination: "/", permanent: true },
+
+      // Anciennes pages de la v1 (301 explicite)
+      { source: "/index.html", destination: "/", statusCode: 301 },
+      ...modelesV1.map((slug) => ({ source: `/${slug}.html`, destination: `/modeles/${slug}`, statusCode: 301 as const })),
+      { source: "/404.html", destination: "/", statusCode: 301 },
     ];
   },
   async headers() {

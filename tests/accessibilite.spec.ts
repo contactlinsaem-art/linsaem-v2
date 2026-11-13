@@ -21,12 +21,12 @@ const pages = [
   "/modeles/coach",
   // Collection actuelle des modèles
   "/modeles/maison-sauge",
-  "/modeles/fournil-saint-roch",
-  "/modeles/ferrand-plomberie",
-  "/modeles/studio-ligne",
+  "/modeles/fournil-belcroute",
+  "/modeles/tuyaumax-plomberie",
+  "/modeles/studio-equerreau",
   "/modeles/atelier-grain",
-  "/modeles/maison-olivette",
-  "/modeles/cap-equilibre",
+  "/modeles/maison-figuelune",
+  "/modeles/boussolia",
   // Réalisations, pages métiers et blog (les brouillons sont générés hors production)
   "/realisations/fatuiali",
   "/realisations/cvuzz",

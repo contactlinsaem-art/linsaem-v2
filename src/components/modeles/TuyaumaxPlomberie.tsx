@@ -2,11 +2,11 @@ import Image from "next/image";
 import { Archivo } from "next/font/google";
 import { BadgeCheck, Bath, Droplets, Flame, Phone, Search, ShieldCheck, Timer, Wrench, Waves } from "lucide-react";
 import { DemoForm } from "./shared/DemoForm";
-import robinet from "@/assets/modeles/ferrand-plomberie/robinet.jpg";
+import robinet from "@/assets/modeles/tuyaumax-plomberie/robinet.jpg";
 import tuyauterie from "@/assets/modeles/covers/artisan.jpg";
-import perceuse from "@/assets/modeles/ferrand-plomberie/perceuse.jpg";
+import perceuse from "@/assets/modeles/tuyaumax-plomberie/perceuse.jpg";
 
-const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--ferrand" });
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--tuyaumax" });
 
 const large = "[font-stretch:115%]";
 const TEL = { affichage: "01 99 00 41 27", lien: "+33199004127" };
@@ -32,9 +32,9 @@ const COMMUNES = ["Nantes", "Rezé", "Saint-Herblain", "Orvault", "Carquefou", "
 const champ =
   "w-full rounded-md border-2 border-slate-300 bg-white px-4 py-3 text-slate-900 focus:border-[#0c1b2e] focus:outline-none";
 
-export function FerrandPlomberie() {
+export function TuyaumaxPlomberie() {
   return (
-    <div className={`${archivo.variable} bg-[#f4f6f8] text-[#0c1b2e] [font-family:var(--ferrand)]`}>
+    <div className={`${archivo.variable} bg-[#f4f6f8] text-[#0c1b2e] [font-family:var(--tuyaumax)]`}>
       {/* Bandeau urgence */}
       <div className="bg-[#ffc53d] px-6 py-2.5 text-center text-sm font-semibold">
         Fuite ou dégât des eaux ? Intervention 7 j/7 :{" "}
@@ -46,9 +46,9 @@ export function FerrandPlomberie() {
       <header className="sticky top-0 z-30 bg-[#0c1b2e] text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
           <p className={`${large} text-xl font-extrabold tracking-tight uppercase`}>
-            Ferrand<span className="text-[#ffc53d]">.</span>plomberie
+            Tuyaumax<span className="text-[#ffc53d]">.</span>plomberie
           </p>
-          <nav aria-label="Menu Ferrand Plomberie" className="hidden gap-7 text-sm font-medium lg:flex">
+          <nav aria-label="Menu Tuyaumax Plomberie" className="hidden gap-7 text-sm font-medium lg:flex">
             <a href="#prestations" className="hover:text-[#ffc53d]">Prestations</a>
             <a href="#intervention" className="hover:text-[#ffc53d]">Intervention</a>
             <a href="#zone" className="hover:text-[#ffc53d]">Zone</a>
@@ -206,20 +206,20 @@ export function FerrandPlomberie() {
             <DemoForm submitLabel="Envoyer ma demande" submitClassName="rounded-md bg-[#0c1b2e] px-7 py-4 font-bold text-white" noteClassName="text-slate-600">
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="ferrand-travaux" className="mb-1.5 block font-semibold">
+                  <label htmlFor="tuyaumax-travaux" className="mb-1.5 block font-semibold">
                     Type de travaux
                   </label>
-                  <select id="ferrand-travaux" className={champ} defaultValue={PRESTATIONS[0]?.titre}>
+                  <select id="tuyaumax-travaux" className={champ} defaultValue={PRESTATIONS[0]?.titre}>
                     {PRESTATIONS.map((p) => (
                       <option key={p.titre}>{p.titre}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="ferrand-cp" className="mb-1.5 block font-semibold">
+                  <label htmlFor="tuyaumax-cp" className="mb-1.5 block font-semibold">
                     Code postal
                   </label>
-                  <input id="ferrand-cp" inputMode="numeric" autoComplete="postal-code" className={champ} />
+                  <input id="tuyaumax-cp" inputMode="numeric" autoComplete="postal-code" className={champ} />
                 </div>
               </div>
               <fieldset>
@@ -227,22 +227,22 @@ export function FerrandPlomberie() {
                 <div className="flex flex-wrap gap-3">
                   {["Aujourd'hui", "Cette semaine", "Pas pressé"].map((u, i) => (
                     <label key={u} className="flex items-center gap-2 rounded-md border-2 border-slate-300 px-4 py-2.5 has-checked:border-[#0c1b2e] has-checked:bg-[#fff3d1]">
-                      <input type="radio" name="ferrand-urgence" defaultChecked={i === 1} className="accent-[#0c1b2e]" /> {u}
+                      <input type="radio" name="tuyaumax-urgence" defaultChecked={i === 1} className="accent-[#0c1b2e]" /> {u}
                     </label>
                   ))}
                 </div>
               </fieldset>
               <div>
-                <label htmlFor="ferrand-message" className="mb-1.5 block font-semibold">
+                <label htmlFor="tuyaumax-message" className="mb-1.5 block font-semibold">
                   Description
                 </label>
-                <textarea id="ferrand-message" rows={4} className={champ} />
+                <textarea id="tuyaumax-message" rows={4} className={champ} />
               </div>
               <div>
-                <label htmlFor="ferrand-tel" className="mb-1.5 block font-semibold">
+                <label htmlFor="tuyaumax-tel" className="mb-1.5 block font-semibold">
                   Téléphone
                 </label>
-                <input id="ferrand-tel" type="tel" autoComplete="tel" className={champ} />
+                <input id="tuyaumax-tel" type="tel" autoComplete="tel" className={champ} />
               </div>
             </DemoForm>
           </div>
@@ -250,7 +250,7 @@ export function FerrandPlomberie() {
       </section>
 
       <footer className="bg-[#08131f] px-6 py-8 pb-24 text-center text-sm text-slate-300 sm:pb-8">
-        Ferrand Plomberie · Plombier chauffagiste à Nantes · Entreprise fictive
+        Tuyaumax Plomberie · Plombier chauffagiste à Nantes · Entreprise fictive
       </footer>
 
       {/* Appel fixe sur mobile */}

@@ -112,7 +112,7 @@ export function Boulangerie() {
             <address className="flex flex-col justify-center rounded-2xl bg-[#fef3c7] p-8 not-italic">
               <p className="mb-2 text-lg font-bold">La Boulangerie Dorée</p>
               <p className="mb-4">
-                24 rue de la Paix
+                24 rue du Pain-Doré
                 <br />
                 75001 Paris
               </p>
@@ -165,7 +165,7 @@ export function Boulangerie() {
 
       <footer className="bg-[#1a0a02] px-6 py-10 text-center text-[#e7cfae]">
         <p className="mb-2 text-2xl font-bold text-[#f59e0b]">La Boulangerie Dorée</p>
-        <p className="text-sm">24 rue de la Paix, 75001 Paris • Tél : {TELEPHONE}</p>
+        <p className="text-sm">24 rue du Pain-Doré, 75001 Paris • Tél : {TELEPHONE}</p>
         <p className="mt-4 text-xs">© La Boulangerie Dorée — entreprise fictive</p>
       </footer>
     </div>
