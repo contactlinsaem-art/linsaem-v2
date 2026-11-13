@@ -35,9 +35,10 @@ test.describe("Image de partage", () => {
     // Image générale sur les pages générales, capture sur les réalisations et les modèles, titre sur métiers et articles.
     expect(images.get("/")).toBe(`${SITE}/og.png`);
     expect(images.get("/contact")).toBe(`${SITE}/og.png`);
-    expect(images.get("/realisations/fatuiali")).toMatch(/\/_next\/static\/media\/fatuiali\.[\w-]+\.jpg$/);
-    expect(images.get("/modeles/maison-sauge")).toMatch(/\/_next\/static\/media\/maison-sauge\.[\w-]+\.jpg$/);
-    expect(images.get("/modeles/vitrine")).toMatch(/\/_next\/static\/media\/vitrine\.[\w-]+\.jpg$/);
+    // En local : /_next/static/media/… ; sur Vercel : /_next/static/immutable/media/…
+    expect(images.get("/realisations/fatuiali")).toMatch(/\/_next\/static\/(?:immutable\/)?media\/fatuiali\.[\w-]+\.jpg$/);
+    expect(images.get("/modeles/maison-sauge")).toMatch(/\/_next\/static\/(?:immutable\/)?media\/maison-sauge\.[\w-]+\.jpg$/);
+    expect(images.get("/modeles/vitrine")).toMatch(/\/_next\/static\/(?:immutable\/)?media\/vitrine\.[\w-]+\.jpg$/);
     expect(images.get("/creation-site-internet/artisan")).toBe(`${SITE}/og/creation-site-internet/artisan.png`);
 
     for (const url of new Set(images.values())) {
